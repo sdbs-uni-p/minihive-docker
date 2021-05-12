@@ -125,6 +125,17 @@ ARG PGPASSWORD="hiverocks"
 RUN sudo /etc/init.d/postgresql restart &&\
     psql -U hive -d metastore -f scripts/metastore/upgrade/postgres/hive-schema-3.1.0.postgres.sql
 
+# download Hive test-bench
+RUN git clone https://github.com/hortonworks/hive-testbench.git
+WORKDIR hive-testbench
+# upgrade hadoop client version
+RUN sed -i 's/<version>2.4.0</version>/<version>3.2.2</version>/g' /home/minihive/hive-testbench/tpch-gen/pom.xml
+# disable obsolete config.
+RUN sed -i 's/set hive.optimize.sort.dynamic.partition.threshold=0;/-- set hive.optimize.sort.dynamic.partition.threshold=0;/g' /home/minihive/hive-testbench/settings/*
+RUN ./tpch-build.sh
+# minimum is 2GB, then, it's disabled during docker build.
+# RUN ./tpch-setup.sh 2 # minimum is 2GB
+
 ##################################################
 # Download and Configure Spark
 ##################################################
