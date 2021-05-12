@@ -143,10 +143,18 @@ radb beers.db
 
 ### MiniHive
 
-Load your implementation on:
+The miniHive project, including the milestones with their unit tests are placed in the directory /home/minihive/minihive/.
 
 ```sh
-cd /home/minihive/minihive/
+cd minihive/
+minihive@bb4f9da4ba8f:~/minihive$ ls -l
+total 256
+-rw-r--r-- 1 minihive minihive   1006 May 12 16:37 README.md
+drwxr-xr-x 1 minihive minihive   4096 May 12 17:00 milestone1
+drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone2
+drwxr-xr-x 1 minihive minihive   4096 May 12 16:37 milestone3
+drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone4
+-rw-r--r-- 1 minihive minihive 239635 May 12 16:37 miniHiveSummary.pdf
 ```
 
 ## Docker Documentation
