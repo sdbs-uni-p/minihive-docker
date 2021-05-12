@@ -34,6 +34,7 @@ RUN apt-get install -y --no-install-recommends \
         wget \
         maven \
         openjdk-8-jre \
+        openjdk-8-jdk \
         scala
 
 ##################################################
