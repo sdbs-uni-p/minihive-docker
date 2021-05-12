@@ -1,6 +1,7 @@
-##################################################
-# Docker setup
-##################################################
+# MiniHive package for the Scalable Database Systems lecture
+
+# Copyright 2021, Edson Ramiro Lucas Filho <edson.lucas@uni-passau.de>
+# SPDX-License-Identifier: GPL-2.0-only
 
 FROM ubuntu:21.04
 
