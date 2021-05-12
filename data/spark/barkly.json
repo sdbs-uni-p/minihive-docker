@@ -1,0 +1,24 @@
+surveys = {
+1: {
+       "puppy_name": "max", 
+       "owner_name": "debbie",
+       "hobbies": "fetch|frisbee|chasing squirrels"
+   },
+2: {
+       "puppy_name": "cheesecake", 
+       "owner_name": "joe",
+       "hobbies": "fetch|frisbee|chasing cars"
+   },
+
+3: {
+       "puppy_name": "tiny", 
+       "owner_name": "mil",
+       "hobbies": "fetch|frisbee|eating"
+   },
+
+4: {
+       "puppy_name": "bubba", 
+       "owner_name": "mario",
+       "hobbies": "fetch|chasing cats"
+   },
+}

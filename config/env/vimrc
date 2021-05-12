@@ -1,0 +1,13 @@
+syntax on
+colorscheme default
+set background=dark
+set noerrorbells
+set hlsearch
+set mouse-=a
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+highlight WhitespaceEOL ctermbg=red guibg=red
+highlight Search cterm=NONE ctermfg=black ctermbg=blue
+match WhitespaceEOL /\s\+$/
+
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
