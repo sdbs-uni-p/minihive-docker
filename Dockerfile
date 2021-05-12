@@ -137,7 +137,7 @@ COPY --chown=minihive:minihive config/spark/* ./conf/
 COPY --chown=minihive:minihive config/hive/hive-site.xml ./conf/
 
 ##################################################
-# Download and Install Python 3.6
+# Download and Install Python
 ##################################################
 
 USER minihive
@@ -164,21 +164,21 @@ RUN sudo --preserve-env=DEBIAN_FRONTEND \
         libffi-dev\
         liblzma-dev
 
-RUN wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tar.xz
-RUN tar xf Python-3.6.5.tar.xz
-RUN rm Python-3.6.5.tar.xz
-WORKDIR Python-3.6.5
+RUN wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
+RUN tar xvzf Python-3.9.4.tgz
+WORKDIR Python-3.9.4
 RUN ./configure --prefix=/usr/local
 RUN make -j $(cat /proc/cpuinfo  | grep processor | wc -l)
 RUN sudo make altinstall
 WORKDIR /opt/
-RUN sudo rm -rf Python-3.6.5
-RUN sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.6  1
+RUN rm Python-3.9.4.tgz
+RUN sudo rm -rf Python-3.9.4
+RUN sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.9  1
 
 # Install PIP
 WORKDIR /opt/
 RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN sudo /usr/local/bin/python3.6 get-pip.py
+RUN sudo /usr/local/bin/python3.9 get-pip.py
 RUN rm get-pip.py
 
 ##################################################
