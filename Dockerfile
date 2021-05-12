@@ -4,7 +4,7 @@
 
 FROM ubuntu:21.04
 
-MAINTAINER Scalable Database Systems Group "sds-minihive@uni-passau.de"
+MAINTAINER Edson Ramiro Lucas Filho "edson.lucas@uni-passau.de"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG="C.UTF-8"
