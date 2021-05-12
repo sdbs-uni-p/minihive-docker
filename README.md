@@ -29,8 +29,7 @@ You can build the docker image with the commands below.
 The docker will install and configure all required services to run MiniHive.
 
 ```sh
-tar xvzf minihive-docker.tar.gz
-cd minihive-docker
+git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker.git
 docker build -t minihive-docker .
 ```
 
