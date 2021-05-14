@@ -31,6 +31,9 @@ RUN apt-get install -y --no-install-recommends \
 	openssh-server \
 	openssh-client \
         gnupg2 \
+        dos2unix \
+        time \
+        bc \
         git \
         wget \
         maven \
@@ -126,19 +129,6 @@ ARG PGPASSWORD="hiverocks"
 RUN sudo /etc/init.d/postgresql restart &&\
     psql -U hive -d metastore -f scripts/metastore/upgrade/postgres/hive-schema-3.1.0.postgres.sql
 
-# download Hive test-bench
-WORKDIR /home/minihive/
-RUN git clone https://github.com/hortonworks/hive-testbench.git
-WORKDIR hive-testbench
-# upgrade hadoop client version
-COPY --chown=minihive:minihive config/hive-testbench/tpch-gen/pom.xml tpch-gen/pom.xml
-COPY --chown=minihive:minihive config/hive-testbench/tpcds-gen/pom.xml tpcds-gen/pom.xml
-COPY --chown=minihive:minihive config/hive-testbench/settings/* settings/
-RUN ./tpch-build.sh
-RUN ./tpch-build.sh
-# minimum is 2GB, then, it's disabled during docker build.
-#RUN ./tpch-setup.sh 2 # minimum is 2GB
-
 ##################################################
 # Download and Configure Spark
 ##################################################
@@ -217,29 +207,22 @@ RUN sudo pip uninstall -y antlr4-python3-runtime
 RUN sudo pip install antlr4-python3-runtime==4.7
 
 ##################################################
-# Download Data and Course Content
+# Download Docker Content (Data and Examples)
 ##################################################
 
-# Load data into RADB
 WORKDIR /home/minihive/
-COPY --chown=minihive:minihive data/radb/ radb
-WORKDIR /home/minihive/radb
-RUN wget -c https://raw.githubusercontent.com/junyang/radb/master/sample/beers.ra
-RUN /usr/local/bin/radb -i beers.ra beers.db
+RUN echo 'echo $GIT_TOKEN' > /home/minihive/.git-askpass
+RUN chmod ugo+x /home/minihive/.git-askpass
+RUN export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj && \
+    export GIT_ASKPASS=/home/minihive/.git-askpass && \
+    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git
+RUN mv minihive-docker-content/* .
+RUN rm -rf minihive-docker-content
+RUN ./get-extra.sh
+RUN rm get-extra.sh
 
-# Download and Configure MiniHive
-WORKDIR /home/minihive/
-RUN git clone https://github.com/miniHive/assignment minihive
-WORKDIR /home/minihive/minihive
-COPY --chown=minihive:minihive config/minihive/luigi.cfg ./milestone3/
-
-# Load data into Hive
-WORKDIR /home/minihive/
-COPY --chown=minihive:minihive data/hive/ hive/
-
-# Load data into Spark
-WORKDIR /home/minihive/
-COPY --chown=minihive:minihive data/spark/ spark
+# Configure Luigi
+COPY --chown=minihive:minihive config/minihive/luigi.cfg ./minihive/milestone3/
 
 ##################################################
 # Launch services when booting Docker
