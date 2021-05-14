@@ -23,6 +23,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y --no-install-recommends \
         apt-utils \
 	build-essential \
+        curl \
 	unzip \
         sudo \
         vim \
@@ -116,8 +117,8 @@ RUN tar xvzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
 WORKDIR apache-hive-3.1.2-bin
 COPY --chown=minihive:minihive config/hive/* ./conf/
-COPY --chown=minihive:minihive lib/hive/* lib/
 RUN rm lib/guava-19.0.jar
+RUN wget -c https://repo1.maven.org/maven2/com/google/guava/guava/27.0-jre/guava-27.0-jre.jar -O lib/guava-27.0-jre.jar
 RUN sudo /etc/init.d/postgresql start &&\
     psql --command "CREATE USER hive WITH SUPERUSER PASSWORD 'hiverocks';" &&\
     createdb -O hive metastore
@@ -129,9 +130,9 @@ RUN sudo /etc/init.d/postgresql restart &&\
 RUN git clone https://github.com/hortonworks/hive-testbench.git
 WORKDIR hive-testbench
 # upgrade hadoop client version
-RUN sed -i 's/<version>2.4.0</version>/<version>3.2.2</version>/g' /home/minihive/hive-testbench/tpch-gen/pom.xml
+RUN sed -i 's@<version>2.4.0</version>@<version>3.2.2</version>@g' tpch-gen/pom.xml
 # disable obsolete config.
-RUN sed -i 's/set hive.optimize.sort.dynamic.partition.threshold=0;/-- set hive.optimize.sort.dynamic.partition.threshold=0;/g' /home/minihive/hive-testbench/settings/*
+RUN sed -i 's/set hive.optimize.sort.dynamic.partition.threshold=0;/-- set hive.optimize.sort.dynamic.partition.threshold=0;/g' settings/*
 RUN ./tpch-build.sh
 # minimum is 2GB, then, it's disabled during docker build.
 # RUN ./tpch-setup.sh 2 # minimum is 2GB
