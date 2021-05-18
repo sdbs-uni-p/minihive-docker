@@ -22,24 +22,24 @@ RUN apt-get update && apt-get -y dist-upgrade
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y --no-install-recommends \
         apt-utils \
+        bc \
 	build-essential \
         curl \
-	unzip \
-        sudo \
-        vim \
-	less \
-	openssh-server \
-	openssh-client \
-        gnupg2 \
         dos2unix \
-        time \
-        bc \
         git \
-        wget \
+        gnupg2 \
+	less \
         maven \
-        openjdk-8-jre \
         openjdk-8-jdk \
-        scala
+        openjdk-8-jre \
+	openssh-client \
+	openssh-server \
+        scala \
+        sudo \
+        time \
+	unzip \
+        vim \
+        wget
 
 ##################################################
 # Create and Configure minihive user
@@ -81,10 +81,10 @@ WORKDIR /root
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get install -y --no-install-recommends \
-        software-properties-common \
         postgresql-13 \
         postgresql-client-13 \
-        postgresql-contrib-13
+        postgresql-contrib-13 \
+        software-properties-common
 WORKDIR /home/postgres
 USER postgres
 RUN /etc/init.d/postgresql start &&\
@@ -153,22 +153,22 @@ WORKDIR /opt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN sudo --preserve-env=DEBIAN_FRONTEND \
     apt-get install -y --no-install-recommends \
-        libc6-dev\
-        libgdbm-dev\
-        libssl-dev \
-        zlib1g-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev\
-        wget\
         curl\
-        llvm\
-        libncurses5-dev\
-        libncursesw5-dev\
-        xz-utils\
-        tk-dev\
-        libffi-dev\
-        liblzma-dev
+        libbz2-dev \
+        libc6-dev \
+        libffi-dev \
+        libgdbm-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        llvm \
+        tk-dev \
+        wget \
+        xz-utils \
+        zlib1g-dev
 
 RUN wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
 RUN tar xvzf Python-3.9.4.tgz
@@ -193,15 +193,15 @@ RUN rm get-pip.py
 
 RUN sudo pip3 install --upgrade pip
 RUN sudo pip3 install --no-cache-dir \
-    wheel \
+    antlr4-python3-runtime \
+    datetime \
+    luigi \
     pytest \
     pytest-repeat \
-    unittest2 \
-    datetime \
-    sqlparse \
-    luigi \
     radb \
-    antlr4-python3-runtime
+    sqlparse \
+    unittest2 \
+    wheel
 
 RUN sudo pip uninstall -y antlr4-python3-runtime
 RUN sudo pip install antlr4-python3-runtime==4.7
