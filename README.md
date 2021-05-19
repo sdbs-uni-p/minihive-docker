@@ -1,4 +1,4 @@
-# miniHive's Docker <a name="minihive-docker"></a> 
+# miniHive's Docker <a name="minihive-docker"></a>
 
 1. [miniHive's Docker](#minihive-docker)\
 1.1 [Building the Docker image](#building-image)\
@@ -18,7 +18,7 @@ Note that the miniHive docker does not contain a Graphical User Interface.
 
 The following steps will assist you to build, run and access the miniHive's Docker image. Please, check the [official Docker documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information in case you have questions regarding specific steps, error messages or the terminology used.
 
-### Building the Docker image <a name="building-image"></a> 
+### Building the Docker image <a name="building-image"></a>
 
 You can download and build the Docker image with the commands below.
 The docker image is named 'minihive-docker'.
@@ -40,8 +40,7 @@ Successfully built 5e914023974a
 Successfully tagged minihive-docker:latest
 ```
 
-
-### Running the Docker container <a name="running-container"></a> 
+### Running the Docker container <a name="running-container"></a>
 
 Now, you need to create a container. The following command will create and run a *container* and name it *minihive*. This command will also redirect the connections on your local port 2222 to the container's port 22.
 
@@ -52,31 +51,25 @@ foo@bar:~$ docker run -t -d --name minihive -p 2222:22 minihive-docker
 At this point you have the docker container running in the background. You can verify that the container is running with the following command:
 
 ```console
-foo@bar:~$ docker ps -a 
+foo@bar:~$ docker ps -a
 CONTAINER ID   IMAGE             COMMAND                  CREATED        STATUS        PORTS                  NAMES
 291614e93438   minihive-docker   "/bin/sh -c /opt/lau…"   18 hours ago   Up 18 hours   0.0.0.0:2222->22/tcp   minihive
 ```
 
-### Accessing the Docker container <a name="accessing-container"></a> 
+### Accessing the Docker container <a name="accessing-container"></a>
 
-Using the following command you can access the *minihive* container via ssh on localhost, port 2222.
-Note that it may take some seconds until the ssh is available.
-
-```console
-foo@bar:~$ ssh -p 2222 minihive@localhost
-```
-The user name and password are:
+Using the following command you can access the *minihive* container via ssh on localhost, port 2222. The user name and password are:
 
 - **username**: minihive
 - **password**: minihive
 
-This user has sudo rights.
+The minihive user has sudo rights.
 
 You should see a message like this when accessing the container.
 
 ```console
-foo@bar:~$ ssh -p 2222 minihive@localhost  
-minihive@localhost's password: 
+foo@bar:~$ ssh -p 2222 minihive@localhost
+minihive@localhost's password:
 Welcome to Ubuntu 21.04 (GNU/Linux 5.10.0-6-amd64 x86_64)
 
  * Documentation:  https://help.ubuntu.com
@@ -95,15 +88,15 @@ To restore this content, you can run the 'unminimize' command.
  
 MiniHive v0.1
 
-minihive@291614e93438:~$ 
-minihive@291614e93438:~$ ls
-README.md  hadoop  hive  minihive  radb  spark  tpch
+minihive@291614e93438:~$
 ```
 
-Note that Hadoop, HDFS, Hive, and Spark may take a few seconds to start. If all services are running, then this command should return **9**:
+
+Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start. If all services are running, then this command should return **9**:
 
 ```console
 minihive@291614e93438:~$ ps xa | grep java | wc
+9
 ```
 
 If the command above report a number different than 9, then, you can re-launch all services by calling this script:
@@ -112,13 +105,13 @@ If the command above report a number different than 9, then, you can re-launch a
 minihive@291614e93438:~$ /opt/launch-services.sh &
 ```
 
-### Stop and Start the Docker container <a name="stop-and-start"></a> 
+### Stop and Start the Docker container <a name="stop-and-start"></a>
 
 Now, lets create a new empty file and exit the container.
 
 ```console
 minihive@291614e93438:~$ touch my-file.txt
-minihive@291614e93438:~$ exit 
+minihive@291614e93438:~$ exit
 ```
 
 You can stop the container and start it again. You file ``my-file.txt'' should be there.
@@ -126,13 +119,12 @@ You can stop the container and start it again. You file ``my-file.txt'' should b
 ```console
 foo@bar:~$ docker stop minihive
 foo@bar:~$ docker start minihive
-foo@bar:~$ ssh -p 2222 minihive@localhost  
+foo@bar:~$ ssh -p 2222 minihive@localhost
 minihive@291614e93438:~$ ls
-README.md  hadoop  hive  minihive  radb  spark  tpch
-
+README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
 ```
 
-### Copy files to/from your local machine <a name="copy-from-to"></a> 
+### Copy files to/from your local machine <a name="copy-from-to"></a>
 
 You can copy files to/from your local machine using scp.
 Exemple:
@@ -147,8 +139,7 @@ foo@bar:~$ scp -P2222 -r <path-to-dir> minihive@localhost:
 foo@bar:~$ scp -P2222 -r  minihive@localhost:<remote-path-to-dir> <local-path-to-dir>
 ```
 
-
-### How to install extra software <a name="install-extra"></a> 
+### How to install extra software <a name="install-extra"></a>
 
 You can install extra software with apt-get. This command install emacs.
 
@@ -156,10 +147,10 @@ You can install extra software with apt-get. This command install emacs.
 minihive@291614e93438:~$ sudo apt-get install emacs
 ```
 
-# Running applications <a name="running-apps"></a> 
+# Running applications <a name="running-apps"></a>
 
 This is the content of the miniHive Docker.
-The directories *hadoop*, *hive*, *spark*, and *radb* contain sample data and example applications to be run in each system. 
+The directories *hadoop*, *hive*, *spark*, and *radb* contain sample data and example applications to be run in each system.
 The *tpch* directory contains the [TPC-H](http://www.tpc.org/tpch/) benchmark that can be run on Hive.
 Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark, RADB, and the miniHive project.
 
@@ -176,14 +167,38 @@ drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hadoop
 minihive@291614e93438:~$ less README.md
 ```
 
-You can use the following commands to run examples in each system:
+You can use the following commands to run examples on each system:
 
 ##### Hadoop
 
-You can execute an example on Hadoop using the command below:
+One example bundled with the Hadoop distribution is how to calculate the **Pi** number.
+You can execute this example on Hadoop using the command below:
 
 ```console
-minihive@291614e93438:~$ hadoop jar hadoop/hadoop-mapreduce-examples-3.2.2.jar pi 10 1000
+minihive@291614e93438:~$ cd hadoop
+minihive@291614e93438:~/hadoop$ hadoop jar hadoop-mapreduce-examples-3.2.2.jar pi 10 1000
+```
+
+Another examples is the wordcount problem. Use the commands below to compile and run the wordcount example.
+
+```console
+minihive@291614e93438:~/hadoop$ hdfs dfs -put starwars.txt
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls
+Found 1 item
+drwxr-xr-x   - minihive supergroup          0 2021-05-19 20:16 count
+minihive@291614e93438:~/hadoop$ hadoop com.sun.tools.javac.Main WordCount.java
+minihive@291614e93438:~/hadoop$ jar cf wc.jar WordCount*.class
+minihive@291614e93438:~/hadoop$ hadoop jar wc.jar WordCount starwars.txt count
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
+Found 2 items
+-rw-r--r--   1 minihive supergroup          0 2021-05-19 18:41 /tmp/count/_SUCCESS
+-rw-r--r--   1 minihive supergroup       1054 2021-05-19 18:41 /tmp/count/part-r-00000
+minihive@291614e93438:~/hadoop$ hdfs dfs -cat count/part*
+[...]
+zaps    1
+zone    1
+zoom    8
+zooms   9
 ```
 
 ##### Hive
@@ -191,8 +206,9 @@ minihive@291614e93438:~$ hadoop jar hadoop/hadoop-mapreduce-examples-3.2.2.jar p
 You can execute an example on Hive using the command below:
 
 ```console
-minihive@291614e93438:~$ hive -f /home/minihive/hive/students.ddl
-minihive@291614e93438:~$ hive -f /home/minihive/hive/students.sql
+minihive@291614e93438:~$ cd hive
+minihive@291614e93438:~/hive$ hive -f students.ddl
+minihive@291614e93438:~/hive$ hive -f students.sql
 ```
 
 ##### Spark
@@ -200,9 +216,11 @@ minihive@291614e93438:~$ hive -f /home/minihive/hive/students.sql
 You can execute an example on Spark using the command below:
 
 ```console
-minihive@291614e93438:~$ spark-submit --class org.apache.spark.examples.SparkPi \
+
+minihive@291614e93438:~$ cd spark
+minihive@291614e93438:~/spark$ spark-submit --class org.apache.spark.examples.SparkPi \
              --master local[2] \
-             /opt/spark-3.1.1-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.1.jar 100
+             spark-examples_2.12-3.1.1.jar 100
 ```
 
 ##### RADB
