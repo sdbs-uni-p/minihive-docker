@@ -4,7 +4,7 @@
 | |  | | | | | | |  _  | |\ V /  __/
 |_|  |_|_|_| |_|_|_| |_|_| \_/ \___|
  
-MiniHive v.1
+MiniHive v0.1
 
 - All services (Hive, Hadoop, HDFS, Spark) may take a few seconds to start.
   If all services are running, then this command should return 9:
