@@ -126,8 +126,11 @@ RUN tar xvzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
 WORKDIR apache-hive-3.1.2-bin
 COPY --chown=minihive:minihive config/hive/* ./conf/
+# fix version of guava
 RUN rm lib/guava-19.0.jar
 RUN wget -c https://repo1.maven.org/maven2/com/google/guava/guava/27.0-jre/guava-27.0-jre.jar -O lib/guava-27.0-jre.jar
+# remove conflict with Hadoop slf4j jar
+RUN rm lib/log4j-slf4j-impl-2.10.0.jar
 RUN sudo /etc/init.d/postgresql start &&\
     psql --command "CREATE USER hive WITH SUPERUSER PASSWORD 'hiverocks';" &&\
     createdb -O hive metastore
