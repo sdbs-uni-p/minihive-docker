@@ -16,7 +16,7 @@ sudo /etc/init.d/postgresql start
 /opt/spark-3.1.1-bin-hadoop3.2/sbin/start-all.sh
 
 # Launch Metastore
-/opt/apache-hive-3.1.2-bin/bin/hive --service metastore &
+/opt/apache-hive-3.1.2-bin/bin/hive --service metastore 2>/dev/null &
 
 # We need to hang docker
 tail -f /dev/null
