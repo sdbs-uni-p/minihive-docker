@@ -42,6 +42,12 @@ RUN apt-get install -y --no-install-recommends \
         wget
 
 ##################################################
+# Remove default software bundled with Docker
+##################################################
+
+RUN sudo rm -rf /usr/lib/jvm/java-11-openjdk-amd64/ /usr/lib/jvm/java-1.11.0-openjdk-amd64
+
+##################################################
 # Create and Configure minihive user
 ##################################################
 
