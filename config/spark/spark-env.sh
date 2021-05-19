@@ -73,3 +73,5 @@
 # You might get better performance to enable these options if using native BLAS (see SPARK-21305).
 # - MKL_NUM_THREADS=1        Disable multi-threading of Intel MKL
 # - OPENBLAS_NUM_THREADS=1   Disable multi-threading of OpenBLAS
+
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
