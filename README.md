@@ -92,17 +92,17 @@ minihive@291614e93438:~$
 ```
 
 
-Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start. If all services are running, then this command should return **9**:
+Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start. Wait a few seconds after you log in. If all services are running, then the command below should return **9**.
 
 ```console
 minihive@291614e93438:~$ ps xa | grep java | wc
 9
 ```
 
-If the command above report a number different than 9, then, you can re-launch all services by calling this script:
+If the command above report a number different than 9, then, you can restart all services by calling this script:
 
 ```console
-minihive@291614e93438:~$ /opt/launch-services.sh &
+minihive@291614e93438:~$ /opt/restart-services.sh &
 ```
 
 ### Stop and Start the Docker container <a name="stop-and-start"></a>
