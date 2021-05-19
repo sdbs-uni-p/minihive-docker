@@ -2,8 +2,12 @@ export TZ='Europe/Berlin'
 export PATH="${PATH}:/home/minihive/"
 export PATH="${PATH}:${HOME}/.local/bin/:/usr/local/bin/"
 
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+export PATH="${PATH}:${JAVA_HOME}/bin/"
+
 export HADOOP_HOME="/opt/hadoop-3.2.2"
 export HADOOP_CONF_DIR="${HADOOP_HOME}/etc/hadoop/"
+export HADOOP_CLASSPATH="${HADOOP_CLASSPATH}:${JAVA_HOME}/lib/tools.jar"
 export PATH="${PATH}:${HADOOP_HOME}/bin/:${HADOOP_HOME}/sbin/"
 
 export HIVE_HOME="/opt/apache-hive-3.1.2-bin/"
@@ -11,9 +15,6 @@ export PATH="${PATH}:${HIVE_HOME}/bin/"
 
 export SPARK_HOME="/opt/spark-3.1.1-bin-hadoop3.2"
 export PATH="${PATH}:${SPARK_HOME}/bin/:${SPARK_HOME}/sbin/"
-
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
-export PATH="${PATH}:${JAVA_HOME}/bin/"
 
 export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj
 export GIT_ASKPASS=/home/minihive/.git-askpass
