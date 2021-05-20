@@ -239,10 +239,10 @@ COPY --chown=minihive:minihive config/minihive/luigi.cfg ./minihive/milestone3/
 
 USER minihive
 WORKDIR /opt
-COPY --chown=minihive:minihive bin/launch-services.sh .
+COPY --chown=minihive:minihive bin/entrypoint.sh .
 COPY --chown=minihive:minihive bin/restart-services.sh .
-RUN chmod 0755 restart-services.sh launch-services.sh
+RUN chmod 0755 restart-services.sh entrypoint.sh
 
 # Leave bash at $HOME
 WORKDIR /home/minihive/
-ENTRYPOINT /opt/launch-services.sh
+ENTRYPOINT /opt/entrypoint.sh

@@ -33,7 +33,7 @@ foo@bar:~$ docker build -t minihive-docker .
 Step 105/106 : WORKDIR /home/minihive/
  ---> Using cache
  ---> ad484932367b
-Step 106/106 : ENTRYPOINT /opt/launch-services.sh
+Step 106/106 : ENTRYPOINT /opt/entrypoint.sh
  ---> Using cache
  ---> 5e914023974a
 Successfully built 5e914023974a
@@ -92,7 +92,7 @@ minihive@291614e93438:~$
 ```
 
 
-Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start. Wait a few seconds after you log in. If all services are running, then the command below should return **9**.
+Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start (about 10-30 seconds depending of your machine). So, wait a few seconds after you log in for the first time. If all services are running, then the command below should return **9**.
 
 ```console
 minihive@291614e93438:~$ ps xa | grep java | wc
