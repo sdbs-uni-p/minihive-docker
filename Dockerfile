@@ -240,7 +240,8 @@ COPY --chown=minihive:minihive config/minihive/luigi.cfg ./minihive/milestone3/
 USER minihive
 WORKDIR /opt
 COPY --chown=minihive:minihive bin/launch-services.sh .
-RUN chmod 0755 launch-services.sh
+COPY --chown=minihive:minihive bin/restart-services.sh .
+RUN chmod 0755 restart-services.sh launch-services.sh
 
 # Leave bash at $HOME
 WORKDIR /home/minihive/
