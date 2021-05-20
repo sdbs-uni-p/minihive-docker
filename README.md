@@ -176,29 +176,32 @@ You can execute this example on Hadoop using the command below:
 
 ```console
 minihive@291614e93438:~$ cd hadoop
-minihive@291614e93438:~/hadoop$ hadoop jar hadoop-mapreduce-examples-3.2.2.jar pi 10 1000
+minihive@291614e93438:~/hadoop$ hadoop jar examples/jars/hadoop-mapreduce-examples-3.2.2.jar pi 10 1000
 ```
 
 Another examples is the wordcount problem. Use the commands below to compile and run the wordcount example.
 
 ```console
-minihive@291614e93438:~/hadoop$ hdfs dfs -put starwars.txt
+minihive@291614e93438:~/hadoop$ hdfs dfs -put ~/data/cities.csv
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls
-Found 1 item
-drwxr-xr-x   - minihive supergroup          0 2021-05-19 20:16 count
+ound 1 items
+-rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
+minihive@291614e93438:~/hadoop$ cd examples/src/wordcount/
 minihive@291614e93438:~/hadoop$ hadoop com.sun.tools.javac.Main WordCount.java
 minihive@291614e93438:~/hadoop$ jar cf wc.jar WordCount*.class
-minihive@291614e93438:~/hadoop$ hadoop jar wc.jar WordCount starwars.txt count
+minihive@291614e93438:~/hadoop$ hadoop jar wc.jar org.apache.hadoop.examples.WordCount cities.csv count
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
 Found 2 items
--rw-r--r--   1 minihive supergroup          0 2021-05-19 18:41 /tmp/count/_SUCCESS
--rw-r--r--   1 minihive supergroup       1054 2021-05-19 18:41 /tmp/count/part-r-00000
+-rw-r--r--   1 minihive supergroup          0 2021-05-20 11:58 count/_SUCCESS
+-rw-r--r--   1 minihive supergroup     237835 2021-05-20 11:58 count/part-r-00000
 minihive@291614e93438:~/hadoop$ hdfs dfs -cat count/part*
 [...]
-zaps    1
-zone    1
-zoom    8
-zooms   9
+‘Izbat  1
+‘Izrā,Jordan,Karak,248923 1
+‘Ulá,Saudi      1
+‘Īsá,Bahrain,Southern  1
+‘Īsá,Egypt,Al   1
+’Aïn    9
 ```
 
 ##### Hive
