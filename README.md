@@ -166,18 +166,17 @@ population-rural.csv        100%  462KB 206.3MB/s   00:00
 airport-flow.tsv            100%   14MB 216.9MB/s   00:00
 foo@bar:~$ ls -l data/
 total 26776
--rw-r--r-- 1 user user  6232459 May 21 10:11 airport-code.csv
--rw-r--r-- 1 user user 15147984 May 21 10:11 airport-flow.tsv
--rw-r--r-- 1 user user   895586 May 21 10:11 cities.csv
--rw-r--r-- 1 user user     4120 May 21 10:11 countries.csv
--rw-r--r-- 1 user user   129984 May 21 10:11 country-codes.csv
--rw-r--r-- 1 user user    17866 May 21 10:11 currency-code.csv
--rw-r--r-- 1 user user   129071 May 21 10:11 population-by-country.csv
--rw-r--r-- 1 user user  3423631 May 21 10:11 population-city.csv
--rw-r--r-- 1 user user   473447 May 21 10:11 population-rural.csv
--rw-r--r-- 1 user user   454342 May 21 10:11 region-gdp.csv
--rw-r--r-- 1 user user   487991 May 21 10:11 region-population.csv
-
+-rw-r--r-- 1 user user  6232459 May 21 11:00 airport-code.csv
+-rw-r--r-- 1 user user 15147984 May 21 11:00 airport-flow.tsv
+-rw-r--r-- 1 user user   895586 May 21 11:00 cities.csv
+-rw-r--r-- 1 user user     4120 May 21 11:00 countries.csv
+-rw-r--r-- 1 user user   129984 May 21 11:00 country-codes.csv
+-rw-r--r-- 1 user user    17866 May 21 11:00 currency-code.csv
+-rw-r--r-- 1 user user   129071 May 21 11:00 population-by-country.csv
+-rw-r--r-- 1 user user  3423631 May 21 11:00 population-city.csv
+-rw-r--r-- 1 user user   473447 May 21 11:00 population-rural.csv
+-rw-r--r-- 1 user user   454342 May 21 11:00 region-gdp.csv
+-rw-r--r-- 1 user user   487991 May 21 11:00 region-population.csv
 ```
 
 ### How to install extra software <a name="install-extra"></a>
@@ -212,25 +211,26 @@ You can use the following commands to run examples on each system:
 
 ##### Hadoop
 
-One example bundled with the Hadoop distribution is how to calculate the **Pi** number.
-You can execute this example on Hadoop using the command below:
+One example is the wordcount problem. Use the commands below to compile and run the wordcount example.
 
 ```console
-minihive@291614e93438:~$ cd hadoop
-minihive@291614e93438:~/hadoop$ hadoop jar examples/jars/hadoop-mapreduce-examples-3.2.2.jar pi 10 1000
-```
-
-Another examples is the wordcount problem. Use the commands below to compile and run the wordcount example.
-
-```console
-minihive@291614e93438:~/hadoop$ hdfs dfs -put ~/data/cities.csv
-minihive@291614e93438:~/hadoop$ hdfs dfs -ls
-ound 1 items
--rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
-minihive@291614e93438:~/hadoop$ cd examples/src/wordcount/
+minihive@291614e93438:~/hadoop$ ls
+WordCount.java  data
 minihive@291614e93438:~/hadoop$ hadoop com.sun.tools.javac.Main WordCount.java
-minihive@291614e93438:~/hadoop$ jar cf wc.jar WordCount*.class
-minihive@291614e93438:~/hadoop$ hadoop jar wc.jar org.apache.hadoop.examples.WordCount cities.csv count
+minihive@291614e93438:~/hadoop$ jar cf wordcount.jar WordCount*.class
+minihive@291614e93438:~/hadoop$ ls
+-rw-rw-r-- 1 user user 1793 May 21 11:00 'WordCount$IntSumReducer.class'
+-rw-rw-r-- 1 user user 1790 May 21 11:00 'WordCount$TokenizerMapper.class'
+-rw-rw-r-- 1 user user 1988 May 21 11:00  WordCount.class
+-rw-rw-r-- 1 user user 3305 May 21 11:00  WordCount.java
+drwxrwxr-x 2 user user 4096 May 21 11:00  data
+-rw-rw-r-- 1 user user 3325 May 21 11:00  wordcount.jar
+minihive@291614e93438:~/hadoop$ hdfs dfs -put data/cities.csv
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls
+found 1 items
+-rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
+minihive@291614e93438:~/hadoop$
+minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar org.apache.hadoop.examples.WordCount cities.csv count
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
 Found 2 items
 -rw-r--r--   1 minihive supergroup          0 2021-05-20 11:58 count/_SUCCESS
