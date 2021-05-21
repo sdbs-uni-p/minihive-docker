@@ -209,16 +209,42 @@ minihive@291614e93438:~$ less README.md
 
 You can use the following commands to run examples on each system:
 
+##### RADB
+
+You can execute an example on RADB using the command below:
+
+```console
+minihive@291614e93438:~$ cd radb
+minihive@291614e93438:~$ radb -i beers.ra beers.db
+minihive@291614e93438:~$ radb beers.db
+ra> \list;
+database relations:
+  Bar(name:string, address:string)
+  Beer(name:string, brewer:string)
+  Drinker(name:string, address:string)
+  Frequents(drinker:string, bar:string, times_a_week:number)
+  Likes(drinker:string, beer:string)
+  Serves(bar:string, beer:string, price:number)
+ra> \select_{name like 'B%'} Beer;
+(name:string, brewer:string)
+----------------------------------------------------------------------
+Budweiser, Anheuser-Busch Inc.
+----------------------------------------------------------------------
+1 tuple returned
+ra> \quit;
+```
+
 ##### Hadoop
 
 One example is the wordcount problem. Use the commands below to compile and run the wordcount example.
 
 ```console
+minihive@291614e93438:~$ cd hadoop
 minihive@291614e93438:~/hadoop$ ls
 WordCount.java  data
 minihive@291614e93438:~/hadoop$ hadoop com.sun.tools.javac.Main WordCount.java
 minihive@291614e93438:~/hadoop$ jar cf wordcount.jar WordCount*.class
-minihive@291614e93438:~/hadoop$ ls
+minihive@291614e93438:~/hadoop$ ls -l
 -rw-rw-r-- 1 user user 1793 May 21 11:00 'WordCount$IntSumReducer.class'
 -rw-rw-r-- 1 user user 1790 May 21 11:00 'WordCount$TokenizerMapper.class'
 -rw-rw-r-- 1 user user 1988 May 21 11:00  WordCount.class
@@ -253,42 +279,34 @@ You can execute an example on Hive using the command below:
 minihive@291614e93438:~$ cd hive
 minihive@291614e93438:~/hive$ hive -f students.ddl
 minihive@291614e93438:~/hive$ hive -f students.sql
+[...]
+Starting Job = job_1621589494056_0002, Tracking URL = http://80497d38c884:8088/proxy/application_1621589494056_0002/
+Kill Command = /opt/hadoop-3.2.2/bin/mapred job  -kill job_1621589494056_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-05-21 11:00:11,086 Stage-1 map = 0%,  reduce = 0%
+2021-05-21 11:00:11,413 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.35 sec
+2021-05-21 11:00:11,694 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.69 sec
+MapReduce Total cumulative CPU time: 7 seconds 690 msec
+Ended Job = job_1621589494056_0002
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.69 sec   HDFS Read: 13084 HDFS Write: 145 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 690 msec
+OK
+33      C3T
+99      C2T
+123     C1T
+Time taken: 27.418 seconds, Fetched: 3 row(s)
 ```
 
 ##### Spark
 
-You can execute an example on Spark using the command below:
+The example below calculates the number *Pi* on Spark:
 
 ```console
-
 minihive@291614e93438:~$ cd spark
 minihive@291614e93438:~/spark$ spark-submit --class org.apache.spark.examples.SparkPi \
              --master local[2] \
-             spark-examples_2.12-3.1.1.jar 100
-```
-
-##### RADB
-
-You can execute an example on RADB using the command below:
-
-```console
-minihive@291614e93438:~$ cd radb
-minihive@291614e93438:~$ radb beers.db
-ra> \list;
-database relations:
-  Bar(name:string, address:string)
-  Beer(name:string, brewer:string)
-  Drinker(name:string, address:string)
-  Frequents(drinker:string, bar:string, times_a_week:number)
-  Likes(drinker:string, beer:string)
-  Serves(bar:string, beer:string, price:number)
-ra> \select_{name like 'B%'} Beer;
-(name:string, brewer:string)
-----------------------------------------------------------------------
-Budweiser, Anheuser-Busch Inc.
-----------------------------------------------------------------------
-1 tuple returned
-ra> \quit;
+             examples/jars/spark-examples_2.12-3.1.1.jar 100
 ```
 
 ##### miniHive
