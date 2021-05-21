@@ -12,7 +12,7 @@
 
 These files are part of a database systems course taught at the University of Passau. These files are used to build and configure a docker image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.1).
 
-In this course students also build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The Docker image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
+In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The Docker image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
 
 Note that the miniHive docker does not contain a Graphical User Interface.
 
@@ -111,6 +111,8 @@ Now, lets create a new empty file and exit the container.
 
 ```console
 minihive@291614e93438:~$ touch my-file.txt
+minihive@291614e93438:~$ ls
+README.md  data  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
 minihive@291614e93438:~$ exit
 ```
 
@@ -118,8 +120,12 @@ You can stop the container and start it again. You file ``my-file.txt'' should b
 
 ```console
 foo@bar:~$ docker stop minihive
+foo@bar:~$ docker ps -a
+CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS                       PORTS     NAMES
+291614e93438   minihive-docker   "/bin/sh -c /opt/ent…"   4 minutes ago   Exited (137) 2 seconds ago             minihive
 foo@bar:~$ docker start minihive
 foo@bar:~$ ssh -p 2222 minihive@localhost
+minihive@localhost's password:
 minihive@291614e93438:~$ ls
 README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
 ```
@@ -127,16 +133,52 @@ README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
 ### Copy files to/from your local machine <a name="copy-from-to"></a>
 
 You can copy files to/from your local machine using scp.
+
 Exemple:
 
 - Copy to:
 ```console
-foo@bar:~$ scp -P2222 -r <path-to-dir> minihive@localhost:
+foo@bar:~$ mkdir -p foo/bar
+foo@bar:~$ touch foo/a.txt
+foo@bar:~$ scp -P2222 -r foo minihive@localhost:
+minihive@localhost's password:
+a.txt                       100%    0     0.0KB/s   00:00
+foo@bar:~$ ssh -p 2222 minihive@localhost
+minihive@localhost's password:
+minihive@291614e93438:~$ ls foo/
+a.txt  bar
 ```
 
 - Copy from:
 ```console
-foo@bar:~$ scp -P2222 -r  minihive@localhost:<remote-path-to-dir> <local-path-to-dir>
+foo@bar:~$ scp -P2222 -r  minihive@localhost:/home/minihive/data/ data
+minihive@localhost's password:
+countries.csv               100% 4120     8.9MB/s   00:00
+currency-code.csv           100%   17KB  26.3MB/s   00:00
+airport-code.csv            100% 6086KB 183.3MB/s   00:00
+region-population.csv       100%  477KB 183.8MB/s   00:00
+population-city.csv         100% 3343KB 212.3MB/s   00:00
+region-gdp.csv              100%  444KB 225.2MB/s   00:00
+population-by-country.csv   100%  126KB 183.5MB/s   00:00
+country-codes.csv           100%  127KB 177.0MB/s   00:00
+cities.csv                  100%  875KB 232.7MB/s   00:00
+population-rural.csv        100%  462KB 206.3MB/s   00:00
+airport-flow.tsv            100%   14MB 216.9MB/s   00:00
+foo@bar:~$ scp -P2222 -r  minihive@localhost:/home/minihive/data/ data
+foo@bar:~$ ls -l data/
+total 26776
+-rw-r--r-- 1 user user  6232459 May 21 10:11 airport-code.csv
+-rw-r--r-- 1 user user 15147984 May 21 10:11 airport-flow.tsv
+-rw-r--r-- 1 user user   895586 May 21 10:11 cities.csv
+-rw-r--r-- 1 user user     4120 May 21 10:11 countries.csv
+-rw-r--r-- 1 user user   129984 May 21 10:11 country-codes.csv
+-rw-r--r-- 1 user user    17866 May 21 10:11 currency-code.csv
+-rw-r--r-- 1 user user   129071 May 21 10:11 population-by-country.csv
+-rw-r--r-- 1 user user  3423631 May 21 10:11 population-city.csv
+-rw-r--r-- 1 user user   473447 May 21 10:11 population-rural.csv
+-rw-r--r-- 1 user user   454342 May 21 10:11 region-gdp.csv
+-rw-r--r-- 1 user user   487991 May 21 10:11 region-population.csv
+
 ```
 
 ### How to install extra software <a name="install-extra"></a>
@@ -256,7 +298,7 @@ The miniHive project, including the milestones with their unit tests are placed 
 
 ```console
 minihive@291614e93438:~$ cd minihive/
-minihive@bb4f9da4ba8f:~/minihive$ ls -l
+minihive@291614e93438:~/minihive$ ls -l
 total 256
 -rw-r--r-- 1 minihive minihive   1006 May 12 16:37 README.md
 drwxr-xr-x 1 minihive minihive   4096 May 12 17:00 milestone1
