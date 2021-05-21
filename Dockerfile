@@ -230,9 +230,6 @@ RUN rm -rf minihive-docker-content
 RUN ./get-extra.sh
 RUN rm get-extra.sh
 
-# Configure Luigi
-COPY --chown=minihive:minihive config/minihive/luigi.cfg ./minihive/milestone3/
-
 ##################################################
 # Launch services when booting Docker
 ##################################################
