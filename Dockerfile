@@ -100,6 +100,7 @@ COPY --chown=postgres:postgres config/postgres/* /etc/postgresql/13/main/
 RUN chmod 0644 /etc/postgresql/13/main/postgresql.conf
 RUN chmod 0640 /etc/postgresql/13/main/pg_hba.conf
 RUN pg_ctlcluster 13 main start
+USER minihive
 RUN chmod go+rx /home/minihive # PostgreSQL needs access to minihive's home
 
 ##################################################
