@@ -28,7 +28,8 @@ After the execution of the *docker build* command you should have a message sayi
 
 ```console
 foo@bar:~$ git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker.git
-foo@bar:~$ docker build -t minihive-docker .
+foo@bar:~$ cd minihive-docker
+foo@bar:~/minihive-docker$ docker build -t minihive-docker .
 [...]
 Step 105/106 : WORKDIR /home/minihive/
  ---> Using cache
@@ -45,13 +46,13 @@ Successfully tagged minihive-docker:latest
 Now, you need to create a container. The following command will create and run a *container* and name it *minihive*. This command will also redirect the connections on your local port 2222 to the container's port 22.
 
 ```console
-foo@bar:~$ docker run -t -d --name minihive -p 2222:22 minihive-docker
+foo@bar:~/minihive-docker$ docker run -t -d --name minihive -p 2222:22 minihive-docker
 ```
 
 At this point you have the docker container running in the background. You can verify that the container is running with the following command:
 
 ```console
-foo@bar:~$ docker ps -a
+foo@bar:~/minihive-docker$ docker ps -a
 CONTAINER ID   IMAGE             COMMAND                  CREATED        STATUS        PORTS                  NAMES
 291614e93438   minihive-docker   "/bin/sh -c /opt/lau…"   18 hours ago   Up 18 hours   0.0.0.0:2222->22/tcp   minihive
 ```
@@ -68,7 +69,7 @@ The minihive user has sudo rights.
 You should see a message like this when accessing the container.
 
 ```console
-foo@bar:~$ ssh -p 2222 minihive@localhost
+foo@bar:~/minihive-docker$ ssh -p 2222 minihive@localhost
 minihive@localhost's password:
 Welcome to Ubuntu 21.04 (GNU/Linux 5.10.0-6-amd64 x86_64)
 
@@ -119,12 +120,12 @@ minihive@291614e93438:~$ exit
 You can stop the container and start it again. You file ``my-file.txt'' should be there.
 
 ```console
-foo@bar:~$ docker stop minihive
-foo@bar:~$ docker ps -a
+foo@bar:~/minihive-docker$ docker stop minihive
+foo@bar:~/minihive-docker$ docker ps -a
 CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS                       PORTS     NAMES
 291614e93438   minihive-docker   "/bin/sh -c /opt/ent…"   4 minutes ago   Exited (137) 2 seconds ago             minihive
-foo@bar:~$ docker start minihive
-foo@bar:~$ ssh -p 2222 minihive@localhost
+foo@bar:~/minihive-docker$ docker start minihive
+foo@bar:~/minihive-docker$ ssh -p 2222 minihive@localhost
 minihive@localhost's password:
 minihive@291614e93438:~$ ls
 README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
@@ -138,12 +139,12 @@ Exemple:
 
 - Copy to:
 ```console
-foo@bar:~$ mkdir -p foo/bar
-foo@bar:~$ touch foo/a.txt
-foo@bar:~$ scp -P2222 -r foo minihive@localhost:
+foo@bar:~/minihive-docker$ mkdir -p foo/bar
+foo@bar:~/minihive-docker$ touch foo/a.txt
+foo@bar:~/minihive-docker$ scp -P2222 -r foo minihive@localhost:
 minihive@localhost's password:
 a.txt                       100%    0     0.0KB/s   00:00
-foo@bar:~$ ssh -p 2222 minihive@localhost
+foo@bar:~/minihive-docker$ ssh -p 2222 minihive@localhost
 minihive@localhost's password:
 minihive@291614e93438:~$ ls foo/
 a.txt  bar
@@ -151,7 +152,7 @@ a.txt  bar
 
 - Copy from:
 ```console
-foo@bar:~$ scp -P2222 -r  minihive@localhost:/home/minihive/data/ data
+foo@bar:~/minihive-docker$ scp -P2222 -r  minihive@localhost:/home/minihive/data/ data
 minihive@localhost's password:
 countries.csv               100% 4120     8.9MB/s   00:00
 currency-code.csv           100%   17KB  26.3MB/s   00:00
@@ -164,7 +165,7 @@ country-codes.csv           100%  127KB 177.0MB/s   00:00
 cities.csv                  100%  875KB 232.7MB/s   00:00
 population-rural.csv        100%  462KB 206.3MB/s   00:00
 airport-flow.tsv            100%   14MB 216.9MB/s   00:00
-foo@bar:~$ ls -l data/
+foo@bar:~/minihive-docker$ ls -l data/
 total 26776
 -rw-r--r-- 1 user user  6232459 May 21 11:00 airport-code.csv
 -rw-r--r-- 1 user user 15147984 May 21 11:00 airport-flow.tsv
