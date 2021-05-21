@@ -252,10 +252,11 @@ minihive@291614e93438:~/hadoop$ ls -l
 -rw-rw-r-- 1 user user 3305 May 21 11:00  WordCount.java
 drwxrwxr-x 2 user user 4096 May 21 11:00  data
 -rw-rw-r-- 1 user user 3325 May 21 11:00  wordcount.jar
+minihive@291614e93438:~/hadoop$ hdfs dfs -mkdir -p /user/minihive
 minihive@291614e93438:~/hadoop$ hdfs dfs -put data/cities.csv
-minihive@291614e93438:~/hadoop$ hdfs dfs -ls
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls /user/minihive
 found 1 items
--rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
+-rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 /user/minihive/cities.csv
 minihive@291614e93438:~/hadoop$
 minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar org.apache.hadoop.examples.WordCount cities.csv count
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
