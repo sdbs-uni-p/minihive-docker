@@ -164,7 +164,6 @@ country-codes.csv           100%  127KB 177.0MB/s   00:00
 cities.csv                  100%  875KB 232.7MB/s   00:00
 population-rural.csv        100%  462KB 206.3MB/s   00:00
 airport-flow.tsv            100%   14MB 216.9MB/s   00:00
-foo@bar:~$ scp -P2222 -r  minihive@localhost:/home/minihive/data/ data
 foo@bar:~$ ls -l data/
 total 26776
 -rw-r--r-- 1 user user  6232459 May 21 10:11 airport-code.csv
