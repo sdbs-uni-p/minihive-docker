@@ -192,18 +192,17 @@ RUN rm Python-3.9.4.tgz
 RUN sudo rm -rf Python-3.9.4
 RUN sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.9  1
 
-# Install PIP
-WORKDIR /opt/
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN sudo /usr/local/bin/python3.9 get-pip.py
-RUN rm get-pip.py
-
 ##################################################
 # Install Python dependencies for MiniHive
 ##################################################
 
-RUN sudo pip3 install --upgrade pip
-RUN sudo pip3 install --no-cache-dir \
+# Install PIP
+RUN wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py --user
+RUN /usr/bin/python -m pip install --upgrade pip --no-warn-script-location
+RUN rm get-pip.py
+
+RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-location \
     antlr4-python3-runtime \
     datetime \
     luigi \
@@ -214,8 +213,9 @@ RUN sudo pip3 install --no-cache-dir \
     unittest2 \
     wheel
 
-RUN sudo pip uninstall -y antlr4-python3-runtime
-RUN sudo pip install antlr4-python3-runtime==4.7
+# fix antlr version for miniHive
+RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime
+RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-script-location
 
 ##################################################
 # Download Docker Content (Data and Examples)
