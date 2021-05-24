@@ -8,5 +8,5 @@ MiniHive v0.1
 
 - All services (Hive, Hadoop, HDFS, Spark) may take a few seconds to start.
   If all services are running, then this command should return 9:
-  > ps xa | grep java | wc
+  > ps xa | grep java | wc -l
 
