@@ -18,9 +18,10 @@ RUN echo 'root:root' | chpasswd
 # Install Linux required packages
 ##################################################
 
-RUN apt-get update && apt-get -y dist-upgrade
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update &&\
+    apt-get -y dist-upgrade &&\
+    apt-get install -y --no-install-recommends \
         apt-utils \
         bc \
 	build-essential \
@@ -112,7 +113,11 @@ RUN chmod go+rx /home/minihive # PostgreSQL needs access to minihive's home
 
 USER minihive
 WORKDIR /opt
-RUN wget -c https://ftp.halifax.rwth-aachen.de/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    -c https://ftp.halifax.rwth-aachen.de/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
 RUN tar xvzf hadoop-3.2.2.tar.gz
 RUN rm -v hadoop-3.2.2.tar.gz
 WORKDIR hadoop-3.2.2
@@ -126,14 +131,22 @@ RUN ./bin/hdfs namenode -format -force
 
 USER minihive
 WORKDIR /opt/
-RUN wget -c https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    -c https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
 RUN tar xvzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
 WORKDIR apache-hive-3.1.2-bin
 COPY --chown=minihive:minihive config/hive/* ./conf/
 # fix version of guava
 RUN rm lib/guava-19.0.jar
-RUN wget -c https://repo1.maven.org/maven2/com/google/guava/guava/27.0-jre/guava-27.0-jre.jar -O lib/guava-27.0-jre.jar
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    -c https://repo1.maven.org/maven2/com/google/guava/guava/27.0-jre/guava-27.0-jre.jar -O lib/guava-27.0-jre.jar
 # remove conflict with Hadoop slf4j jar
 RUN rm lib/log4j-slf4j-impl-2.10.0.jar
 RUN sudo /etc/init.d/postgresql start &&\
@@ -149,7 +162,11 @@ RUN sudo /etc/init.d/postgresql restart &&\
 
 USER minihive
 WORKDIR /opt/
-RUN wget -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz
 RUN tar xvzf spark-3.1.1-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.1-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.1-bin-hadoop3.2
@@ -184,7 +201,11 @@ RUN sudo --preserve-env=DEBIAN_FRONTEND \
         xz-utils \
         zlib1g-dev
 
-RUN wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
 RUN tar xvzf Python-3.9.4.tgz
 WORKDIR Python-3.9.4
 RUN ./configure --prefix=/usr/local
@@ -200,8 +221,12 @@ RUN sudo update-alternatives --install /usr/bin/python python /usr/local/bin/pyt
 ##################################################
 
 # Install PIP
-RUN wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py --user
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    --no-check-certificate \
+    -c https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py --user --no-warn-script-location
 RUN /usr/bin/python -m pip install --upgrade pip --no-warn-script-location
 RUN rm get-pip.py
 
