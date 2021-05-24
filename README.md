@@ -59,7 +59,7 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED        STATUS 
 
 ### Accessing the Docker container <a name="accessing-container"></a>
 
-Using the following command you can access the *minihive* container via ssh on localhost, port 2222. The user name and password are:
+Using the following command you can access the *minihive* container via ssh on localhost, port 2222. Please, check the ssh's [manual pages](https://www.openssh.com/manual.html) for more information. The user name and password are:
 
 - **username**: minihive
 - **password**: minihive
@@ -96,14 +96,14 @@ minihive@291614e93438:~$
 Note that the SSH server, as well as the other services of Hadoop, HDFS, Hive, and Spark may take a few seconds to start (about 10-30 seconds depending of your machine). So, wait a few seconds after you log in for the first time. If all services are running, then the command below should return **9**.
 
 ```console
-minihive@291614e93438:~$ ps xa | grep java | wc
+minihive@291614e93438:~$ ps xa | grep java | wc -l
 9
 ```
 
 If the command above report a number different than 9, then, you can restart all services by calling this script:
 
 ```console
-minihive@291614e93438:~$ /opt/restart-services.sh &
+minihive@291614e93438:~$ /opt/restart-services.sh
 ```
 
 ### Stop and Start the Docker container <a name="stop-and-start"></a>
@@ -252,11 +252,10 @@ minihive@291614e93438:~/hadoop$ ls -l
 -rw-rw-r-- 1 user user 3305 May 21 11:00  WordCount.java
 drwxrwxr-x 2 user user 4096 May 21 11:00  data
 -rw-rw-r-- 1 user user 3325 May 21 11:00  wordcount.jar
-minihive@291614e93438:~/hadoop$ hdfs dfs -mkdir -p /user/minihive
 minihive@291614e93438:~/hadoop$ hdfs dfs -put data/cities.csv
-minihive@291614e93438:~/hadoop$ hdfs dfs -ls /user/minihive
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls
 found 1 items
--rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 /user/minihive/cities.csv
+-rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
 minihive@291614e93438:~/hadoop$
 minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar org.apache.hadoop.examples.WordCount cities.csv count
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
