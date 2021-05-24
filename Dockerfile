@@ -118,7 +118,7 @@ RUN wget \
     --progress=bar:force:noscrol \
     --no-check-certificate \
     -c https://ftp.halifax.rwth-aachen.de/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
-RUN tar xvzf hadoop-3.2.2.tar.gz
+RUN tar xzf hadoop-3.2.2.tar.gz
 RUN rm -v hadoop-3.2.2.tar.gz
 WORKDIR hadoop-3.2.2
 COPY --chown=minihive:minihive config/hadoop/* ./etc/hadoop/
@@ -136,7 +136,7 @@ RUN wget \
     --progress=bar:force:noscrol \
     --no-check-certificate \
     -c https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
-RUN tar xvzf apache-hive-3.1.2-bin.tar.gz
+RUN tar xzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
 WORKDIR apache-hive-3.1.2-bin
 COPY --chown=minihive:minihive config/hive/* ./conf/
@@ -167,7 +167,7 @@ RUN wget \
     --progress=bar:force:noscrol \
     --no-check-certificate \
     -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz
-RUN tar xvzf spark-3.1.1-bin-hadoop3.2.tgz
+RUN tar xzf spark-3.1.1-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.1-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.1-bin-hadoop3.2
 COPY --chown=minihive:minihive config/spark/* ./conf/
@@ -206,7 +206,7 @@ RUN wget \
     --progress=bar:force:noscrol \
     --no-check-certificate \
     https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
-RUN tar xvzf Python-3.9.4.tgz
+RUN tar xzf Python-3.9.4.tgz
 WORKDIR Python-3.9.4
 RUN ./configure --prefix=/usr/local
 RUN make -j $(cat /proc/cpuinfo  | grep processor | wc -l)
