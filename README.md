@@ -81,12 +81,12 @@ This system has been minimized by removing packages and content that are
 not required on a system that users do not log into.
 
 To restore this content, you can run the 'unminimize' command.
- __  __ _       _ _   _ _           
-|  \/  (_)_ __ (_) | | (_)_   _____ 
-| |\/| | | '_ \| | |_| | \ \ / / _ \
-| |  | | | | | | |  _  | |\ V /  __/
-|_|  |_|_|_| |_|_|_| |_|_| \_/ \___|
- 
+           _       _ _   _ _
+ _ __ ___ (_)_ __ (_) | | (_)_   _____
+| '_ ` _ \| | '_ \| | |_| | \ \ / / _ \
+| | | | | | | | | | |  _  | |\ V /  __/
+|_| |_| |_|_|_| |_|_|_| |_|_| \_/ \___|
+
 MiniHive v0.1
 
 minihive@291614e93438:~$
