@@ -254,7 +254,8 @@ RUN echo 'echo $GIT_TOKEN' > /home/minihive/.git-askpass
 RUN chmod ugo+x /home/minihive/.git-askpass
 RUN export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj && \
     export GIT_ASKPASS=/home/minihive/.git-askpass && \
-    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git .
+    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git docker-content
+RUN mv docker-content/* . && rm -rf docker-content
 RUN ./build.sh
 RUN rm build.sh
 
