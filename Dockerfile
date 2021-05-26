@@ -254,11 +254,9 @@ RUN echo 'echo $GIT_TOKEN' > /home/minihive/.git-askpass
 RUN chmod ugo+x /home/minihive/.git-askpass
 RUN export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj && \
     export GIT_ASKPASS=/home/minihive/.git-askpass && \
-    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git
-RUN mv minihive-docker-content/* .
-RUN rm -rf minihive-docker-content
-RUN ./get-extra.sh
-RUN rm get-extra.sh
+    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git .
+RUN ./build.sh
+RUN rm build.sh
 
 ##################################################
 # Launch services when booting Docker
