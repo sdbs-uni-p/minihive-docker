@@ -232,7 +232,12 @@ RUN rm get-pip.py
 
 RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-location \
     antlr4-python3-runtime \
+    boto3 \
     datetime \
+    google-api-client \
+    google-api-python-client \
+    google-auth \
+    httplib2 \
     luigi \
     pytest \
     pytest-repeat \
