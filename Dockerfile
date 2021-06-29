@@ -167,9 +167,9 @@ RUN wget \
     --progress=bar:force:noscrol \
     --no-check-certificate \
     -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
-RUN tar xzf spark-3.1.1-bin-hadoop3.2.tgz
-RUN rm -v spark-3.1.1-bin-hadoop3.2.tgz
-WORKDIR spark-3.1.1-bin-hadoop3.2
+RUN tar xzf spark-3.1.2-bin-hadoop3.2.tgz
+RUN rm -v spark-3.1.2-bin-hadoop3.2.tgz
+WORKDIR spark-3.1.2-bin-hadoop3.2
 COPY --chown=minihive:minihive config/spark/* ./conf/
 COPY --chown=minihive:minihive config/hive/hive-site.xml ./conf/
 
