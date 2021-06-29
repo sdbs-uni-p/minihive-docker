@@ -86,7 +86,7 @@ RUN chmod 0600 ~/.ssh/authorized_keys
 USER root
 WORKDIR /root
 RUN sudo gpg \
-    --keyserver hkp://p80.pool.sks-keyservers.net:80 \
+    --keyserver keys.openpgp.org \
     --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
