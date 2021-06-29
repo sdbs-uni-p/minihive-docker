@@ -30,9 +30,9 @@ run_cmd "Stop YARN" "/opt/hadoop-3.2.2/sbin/stop-yarn.sh"
 run_cmd "Start YARN" "/opt/hadoop-3.2.2/sbin/start-yarn.sh"
 
 # Restart Spark
-run_cmd "Stop Spark" "/opt/spark-3.1.1-bin-hadoop3.2/sbin/stop-all.sh"
+run_cmd "Stop Spark" "/opt/spark-3.1.2-bin-hadoop3.2/sbin/stop-all.sh"
 kill_all_clients "spark"
-run_cmd "Start Spark" "/opt/spark-3.1.1-bin-hadoop3.2/sbin/start-all.sh"
+run_cmd "Start Spark" "/opt/spark-3.1.2-bin-hadoop3.2/sbin/start-all.sh"
 
 # Restart Metastore
 kill_all_clients "metastore"
