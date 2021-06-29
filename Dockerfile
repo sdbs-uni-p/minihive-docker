@@ -166,7 +166,7 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.1/spark-3.1.1-bin-hadoop3.2.tgz
+    -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 RUN tar xzf spark-3.1.1-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.1-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.1-bin-hadoop3.2
