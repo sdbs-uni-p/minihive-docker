@@ -10,7 +10,7 @@
 2. [Running applications](#running-apps)
 
 
-These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a docker image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.1).
+These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a docker image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.2).
 
 In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The Docker image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
 
@@ -307,7 +307,7 @@ The example below calculates the number *Pi* on Spark:
 minihive@291614e93438:~$ cd spark
 minihive@291614e93438:~/spark$ spark-submit --class org.apache.spark.examples.SparkPi \
              --master local[2] \
-             examples/jars/spark-examples_2.12-3.1.1.jar 100
+             examples/jars/spark-examples_2.12-3.1.2.jar 100
 ```
 
 ##### miniHive
