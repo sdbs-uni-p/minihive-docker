@@ -132,7 +132,7 @@ strict checking.
 Host key verification failed.
 ```
 
-You just need to execute and SSH will take care of it.
+To remove the old identification you need to execute the command presented by SSH, and SSH will take care of removing it.
 
 ```console
    ssh-keygen -f "/home/foo/.ssh/known_hosts" -R "[localhost]:2222"
