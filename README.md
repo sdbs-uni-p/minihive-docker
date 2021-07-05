@@ -106,6 +106,38 @@ If the command above report a number different than 9, then, you can restart all
 minihive@291614e93438:~$ /opt/restart-services.sh
 ```
 
+### 
+
+SSH will not let you access a host that has a different identification. This is to avoid man-in-the-middle attacks.
+In case you receive a similar warning from SSH, you can solve this by removing the old identification that is stored in the *~/.ssh/known_hosts* file.
+
+```console
+foo@bar:~$ ssh -p 2222 minihive@localhost
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:k9HcUYIJpme1h9JJIFnjhniFLRWudOJJ57pUH1aV/BQ.
+Please contact your system administrator.
+Add correct host key in /home/foo/.ssh/known_hosts to get rid of this
+message.
+Offending ECDSA key in /home/foo/.ssh/known_hosts:10
+   remove with:
+   ssh-keygen -f "/home/foo/.ssh/known_hosts" -R "[localhost]:2222"
+ECDSA host key for [localhost]:2222 has changed and you have requested
+strict checking.
+Host key verification failed.
+```
+
+You just need to execute and SSH will take care of it.
+
+```console
+   ssh-keygen -f "/home/foo/.ssh/known_hosts" -R "[localhost]:2222"
+```
+
 ### Stop and Start the Docker container <a name="stop-and-start"></a>
 
 Now, lets create a new empty file and exit the container.
