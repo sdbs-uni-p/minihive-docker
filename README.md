@@ -337,9 +337,9 @@ The example below calculates the number *Pi* on Spark:
 
 ```console
 minihive@291614e93438:~$ cd spark
-minihive@291614e93438:~/spark$ spark-submit --class org.apache.spark.examples.SparkPi \
-             --master local[2] \
-             examples/jars/spark-examples_2.12-3.1.2.jar 100
+minihive@291614e93438:~/spark$ spark-submit \
+            --class org.apache.spark.examples.SparkPi \
+            --master local[2] /opt/spark-3.1.2-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.2.jar 100
 ```
 
 ##### miniHive
