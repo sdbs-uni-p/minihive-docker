@@ -103,7 +103,7 @@ RUN /etc/init.d/postgresql start &&\
 COPY --chown=postgres:postgres config/postgres/* /etc/postgresql/13/main/
 RUN chmod 0644 /etc/postgresql/13/main/postgresql.conf
 RUN chmod 0640 /etc/postgresql/13/main/pg_hba.conf
-RUN pg_ctlcluster 13 main start
+RUN /usr/lib/postgresql/13/bin/pg_ctl start -w -t 300 -l "/var/log/postgresql/postgresql-13-main.log" -D "/var/lib/postgresql/13/main" -o "-c config_file=/etc/postgresql/13/main/postgresql.conf"
 USER minihive
 RUN chmod go+rx /home/minihive # PostgreSQL needs access to minihive's home
 
