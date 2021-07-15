@@ -269,7 +269,7 @@ ra> \quit;
 
 ##### Hadoop
 
-One example is the wordcount problem. Use the commands below to compile and run the wordcount example.
+One example is the wordcount problem. Use the commands below to compile and run the wordcount example. Please, make sure that more than 10% of the total disk on your machine is free.
 
 ```console
 minihive@291614e93438:~$ cd hadoop
