@@ -27,7 +27,7 @@ This step may take a while because all required software will be downloaded, ins
 After the execution of the *docker build* command you should have a message saying the build was successful.
 
 ```console
-foo@bar:~$ git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker.git
+foo@bar:~$ git clone https://github.com/sdbs-uni-p/minihive-docker.git
 foo@bar:~$ cd minihive-docker
 foo@bar:~/minihive-docker$ docker build -t minihive-docker .
 [...]
