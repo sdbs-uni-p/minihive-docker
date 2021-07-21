@@ -239,8 +239,10 @@ RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-locati
     google-auth \
     httplib2 \
     luigi \
+    mechanize \
     pytest \
     pytest-repeat \
+    tenacity \
     radb \
     sqlparse \
     unittest2 \
