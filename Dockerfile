@@ -242,6 +242,7 @@ RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-locati
     mechanize \
     pytest \
     pytest-repeat \
+    python-dateutil \
     tenacity \
     radb \
     sqlparse \
