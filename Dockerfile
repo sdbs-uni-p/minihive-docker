@@ -250,7 +250,7 @@ RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-locati
     wheel
 
 # fix antlr version for miniHive
-RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime
+RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime==4.9.2
 RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-script-location
 
 ##################################################
