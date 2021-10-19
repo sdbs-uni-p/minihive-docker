@@ -272,6 +272,14 @@ RUN ./build.sh
 RUN rm build.sh
 
 ##################################################
+# Prepare Home Directory
+##################################################
+USER minihive
+WORKDIR /home/minihive/
+
+COPY --chown=minihive:minihive config/minihive/* ./
+
+##################################################
 # Launch services when booting Docker
 ##################################################
 
