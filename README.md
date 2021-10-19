@@ -30,15 +30,11 @@ After the execution of the *docker build* command you should have a message sayi
 ```console
 foo@bar:~$ git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker.git
 foo@bar:~$ cd minihive-docker
-foo@bar:~/minihive-docker$ docker build -t minihive-docker .
+foo@bar:~/minihive-docker$ docker build --no-cache -t minihive-docker .
 [...]
-Step 105/106 : WORKDIR /home/minihive/
- ---> Using cache
- ---> ad484932367b
-Step 106/106 : ENTRYPOINT /opt/entrypoint.sh
- ---> Using cache
- ---> 5e914023974a
-Successfully built 5e914023974a
+Step 107/107 : ENTRYPOINT /opt/entrypoint.sh
+[...]
+Successfully built 1517444f3ff1
 Successfully tagged minihive-docker:latest
 ```
 
@@ -343,20 +339,4 @@ minihive@291614e93438:~$ cd spark
 minihive@291614e93438:~/spark$ spark-submit \
             --class org.apache.spark.examples.SparkPi \
             --master local[2] /opt/spark-3.1.2-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.2.jar 100
-```
-
-##### miniHive
-
-The miniHive project, including the milestones with their unit tests are placed in the directory /home/minihive/minihive/.
-
-```console
-minihive@291614e93438:~$ cd minihive/
-minihive@291614e93438:~/minihive$ ls -l
-total 256
--rw-r--r-- 1 minihive minihive    134 May 12 16:37 luigi.cfg
-drwxr-xr-x 1 minihive minihive   4096 May 12 17:00 milestone1
-drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone2
-drwxr-xr-x 1 minihive minihive   4096 May 12 16:37 milestone3
-drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone4
--rw-r--r-- 1 minihive minihive 239635 May 12 16:37 miniHiveSummary.pdf
 ```
