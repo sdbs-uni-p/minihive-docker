@@ -267,9 +267,7 @@ WORKDIR /home/minihive/
 
 RUN eval `ssh-agent -s` && ssh-add /home/minihive/.ssh/minihive-docker-content && \
     git clone git@github.com:sdbs-uni-p/minihive-docker-content.git docker-content
-RUN mv docker-content/* . && rm -rf docker-content
-RUN ./build.sh
-RUN rm build.sh
+RUN mv docker-content/* . && rm -rf docker-content build.sh
 
 ##################################################
 # Prepare Home Directory
