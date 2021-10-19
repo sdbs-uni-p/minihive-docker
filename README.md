@@ -1,4 +1,4 @@
-# miniHive's Docker <a name="minihive-docker"></a>
+# miniHive's Container
 
 1. [miniHive's Docker](#minihive-docker)\
 1.1 [Building the Docker image](#building-image)\
@@ -9,12 +9,13 @@
 1.6 [How to install extra software](#install-extra)
 2. [Running applications](#running-apps)
 
+These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a container image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.2).
 
-These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a docker image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.2).
+In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
 
-In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The Docker image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
+Note that the miniHive container does not contain a Graphical User Interface.
 
-Note that the miniHive docker does not contain a Graphical User Interface.
+# miniHive's Docker <a name="minihive-docker"></a>
 
 The following steps will assist you to build, run and access the miniHive's Docker image. Please, check the [official Docker documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information in case you have questions regarding specific steps, error messages or the terminology used.
 
@@ -46,7 +47,7 @@ Successfully tagged minihive-docker:latest
 Now, you need to create a container. The following command will create and run a *container* and name it *minihive*. This command will also redirect the connections on your local port 2222 to the container's port 22.
 
 ```console
-foo@bar:~/minihive-docker$ docker run -t -d --name minihive -p 2222:22 minihive-docker
+foo@bar:~/minihive-docker$ docker run -d --name minihive -p 2222:22 minihive-docker
 ```
 
 At this point you have the docker container running in the background. You can verify that the container is running with the following command:
@@ -108,8 +109,8 @@ minihive@291614e93438:~$ /opt/restart-services.sh
 
 ### 
 
-SSH will not let you access a host that has a different identification. This is to avoid man-in-the-middle attacks.
-In case you receive a similar warning from SSH, you can solve this by removing the old identification that is stored in the *~/.ssh/known_hosts* file.
+SSH will not let you access a host:port combination that has a different identification then the one previosly stored. This is to avoid man-in-the-middle attacks.
+In case you receive a similar warning from SSH after you recreated the container, you can solve this by removing the old identification that is stored in the *~/.ssh/known_hosts* file.
 
 ```console
 foo@bar:~$ ssh -p 2222 minihive@localhost
@@ -284,6 +285,8 @@ minihive@291614e93438:~/hadoop$ ls -l
 -rw-rw-r-- 1 user user 3305 May 21 11:00  WordCount.java
 drwxrwxr-x 2 user user 4096 May 21 11:00  data
 -rw-rw-r-- 1 user user 3325 May 21 11:00  wordcount.jar
+minihive@291614e93432:~/hadoop$ hdfs dfs -mkdir /user
+minihive@291614e93432:~/hadoop$ hdfs dfs -mkdir /user/minihive
 minihive@291614e93438:~/hadoop$ hdfs dfs -put data/cities.csv
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls
 found 1 items
@@ -350,7 +353,7 @@ The miniHive project, including the milestones with their unit tests are placed 
 minihive@291614e93438:~$ cd minihive/
 minihive@291614e93438:~/minihive$ ls -l
 total 256
--rw-r--r-- 1 minihive minihive   1006 May 12 16:37 README.md
+-rw-r--r-- 1 minihive minihive    134 May 12 16:37 luigi.cfg
 drwxr-xr-x 1 minihive minihive   4096 May 12 17:00 milestone1
 drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone2
 drwxr-xr-x 1 minihive minihive   4096 May 12 16:37 milestone3
