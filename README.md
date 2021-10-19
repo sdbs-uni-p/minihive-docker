@@ -160,7 +160,7 @@ minihive@291614e93438:~$ ls
 README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
 ```
 
-### Copy files to/from your local machine <a name="copy-from-to"></a>
+### Copy files to/from your local machine<a name="copy-from-to"></a>
 
 You can copy files to/from your local machine using scp.
 
