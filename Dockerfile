@@ -73,11 +73,20 @@ COPY --chown=root:root config/etc/motd /etc/motd
 # Configure minihive's ssh
 USER minihive
 WORKDIR /home/minihive
+
 RUN mkdir -p /home/minihive/.ssh
 RUN chmod 0700 /home/minihive/.ssh
-RUN ssh-keygen -t rsa -P '' -f /home/minihive/.ssh/id_rsa
-RUN cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+RUN ssh-keygen -t ed25519 -P '' -f /home/minihive/.ssh/id_ed25519
+RUN chmod 0600 ~/.ssh/id_ed25519
+RUN chmod 0600 ~/.ssh/id_ed25519.pub
+
+RUN touch ~/.ssh/authorized_keys
 RUN chmod 0600 ~/.ssh/authorized_keys
+
+# Prepare SSH to cline minihive-docker-content (private repository)
+COPY --chown=minihive:minihive config/ssh/* /home/minihive/.ssh/
+RUN chmod 0600 ~/.ssh/minihive-docker-content ~/.ssh/minihive-docker-content.pub
 
 ##################################################
 # Download and Configure PostgreSQL
@@ -255,11 +264,9 @@ RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-
 ##################################################
 
 WORKDIR /home/minihive/
-RUN echo 'echo $GIT_TOKEN' > /home/minihive/.git-askpass
-RUN chmod ugo+x /home/minihive/.git-askpass
-RUN export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj && \
-    export GIT_ASKPASS=/home/minihive/.git-askpass && \
-    git clone https://git.fim.uni-passau.de/sdbs/minihive/minihive-docker-content.git docker-content
+
+RUN eval `ssh-agent -s` && ssh-add /home/minihive/.ssh/minihive-docker-content && \
+    git clone git@github.com:sdbs-uni-p/minihive-docker-content.git docker-content
 RUN mv docker-content/* . && rm -rf docker-content
 RUN ./build.sh
 RUN rm build.sh
@@ -270,8 +277,10 @@ RUN rm build.sh
 
 USER minihive
 WORKDIR /opt
-COPY --chown=minihive:minihive bin/entrypoint.sh .
-COPY --chown=minihive:minihive bin/restart-services.sh .
+COPY --chown=minihive:minihive \
+    bin/entrypoint.sh \
+    bin/restart-services.sh \
+    ./
 RUN chmod 0755 restart-services.sh entrypoint.sh
 
 # Leave bash at $HOME
