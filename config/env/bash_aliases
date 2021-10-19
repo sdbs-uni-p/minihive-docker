@@ -16,6 +16,3 @@ export PATH="${PATH}:${HIVE_HOME}/bin/"
 
 export SPARK_HOME="/opt/spark-3.1.2-bin-hadoop3.2"
 export PATH="${PATH}:${SPARK_HOME}/bin/:${SPARK_HOME}/sbin/"
-
-export GIT_TOKEN=khzrwRPU8Uv52ZzR9Eyj
-export GIT_ASKPASS=/home/minihive/.git-askpass
