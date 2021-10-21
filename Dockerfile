@@ -7,15 +7,15 @@ FROM ubuntu:21.04
 
 ENV MINIHIVE_DOCKER_VERSION=1.0.0
 
-LABEL org.opencontainers.image.authors="Michael Fruth <michael.fruth@uni-passau.de>, Sascha Schiegg <sascha.schiegg@uni-passau.de>"
-LABEL org.opencontainers.image.title="miniHive Docker"
-LABEL org.opencontainers.image.description="Official miniHive Docker image"
-LABEL org.opencontainers.image.url="https://github.com/sdbs-uni-p/minihive-docker"
-LABEL org.opencontainers.image.documentation="https://github.com/sdbs-uni-p/minihive-docker"
-LABEL org.opencontainers.image.source="https://github.com/sdbs-uni-p/minihive-docker"
-LABEL org.opencontainers.image.version=${MINIHIVE_DOCKER_VERSION}
-LABEL org.opencontainers.image.vendo="Chair of Scalable Database Systems - University of Passau"
-LABEL org.opencontainers.image.licenses="GPL-2.0-only"
+LABEL org.opencontainers.image.authors "Michael Fruth <michael.fruth@uni-passau.de>, Sascha Schiegg <sascha.schiegg@uni-passau.de>"
+LABEL org.opencontainers.image.title "miniHive Docker"
+LABEL org.opencontainers.image.description "Official miniHive Docker image"
+LABEL org.opencontainers.image.url "https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.documentation "https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.source "https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.version ${MINIHIVE_DOCKER_VERSION}
+LABEL org.opencontainers.image.vendor "Chair of Scalable Database Systems - University of Passau"
+LABEL org.opencontainers.image.licenses "GPL-2.0-only"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG="C.UTF-8"
