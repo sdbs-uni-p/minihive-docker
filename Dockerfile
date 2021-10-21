@@ -235,60 +235,12 @@ RUN sudo ln -s pip3 pip
 # Install Python dependencies for MiniHive
 ##################################################
 
-# Install PIP
-#RUN wget \
-#    --no-verbose --show-progress \
-#    --progress=bar:force:noscrol \
-#    --no-check-certificate \
-#    -c https://bootstrap.pypa.io/get-pip.py
-#RUN python get-pip.py --user --no-warn-script-location
-#RUN /usr/bin/python -m pip install --upgrade pip --no-warn-script-location
-#RUN rm get-pip.py
-
-# RADB Dependencies
-# 
-RUN pip3 install --user --disable-pip-version-check --no-cache-dir \
-    radb \
-    sqlparse \
-    luigi \
-    pytest \
-    pytest-repeat \
-    httplib2
-
-RUN sudo pip3 install --disable-pip-version-check --no-cache-dir \
-    radb \
-    sqlparse \
-    luigi \
-    pytest \
-    pytest-repeat \
-    httplib2
-
-
-
- #httplib2, google-auth
-#googleapiclient & google-auth
-#pip install google-api-python-client
-
-#RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-location \
-#    antlr4-python3-runtime \
-#    boto3 \
-#    datetime \
-#    google-api-client \
-#    google-api-python-client \
-#    google-auth \
-#    httplib2 \
-#    luigi \
-#    pytest \
-#    pytest-repeat \
-#    radb \
-#    sqlparse \
-#    unittest2 \
-#    wheel
-
-# TODO: Delete
-# fix antlr version for miniHive
-#RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime
-#RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-script-location
+WORKDIR /tmp
+USER minihive
+COPY --chown=minihive:minihive config/python/requirements.txt requirements.txt
+# Install all packages as minihive user AND as root (system-level packages are needed for Luigi+Hadoop)
+RUN pip install --user --disable-pip-version-check --no-cache-dir -r requirements.txt
+RUN sudo pip install --disable-pip-version-check --no-cache-dir -r requirements.txt
 
 ##################################################
 # Download Docker Content (Data and Examples)
