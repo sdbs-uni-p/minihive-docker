@@ -1,14 +1,21 @@
 # MiniHive package for the Scalable Database Systems lecture
 
-# Copyright 2021, Edson Ramiro Lucas Filho <edson.lucas@uni-passau.de>
+# Copyright 2021, Chair of Scalable Database Systems - University of Passau
 # SPDX-License-Identifier: GPL-2.0-only
 
 FROM ubuntu:21.04
 
-# Authors:
-#   Edson Ramiro Lucas Filho (University of Passau)
+ENV MINIHIVE_DOCKER_VERSION=1.0.0
 
-LABEL maintainer="michael.fruth@uni-passau.de"
+LABEL org.opencontainers.image.authors="Michael Fruth <michael.fruth@uni-passau.de>, Sascha Schiegg <sascha.schiegg@uni-passau.de>"
+LABEL org.opencontainers.image.title="miniHive Docker"
+LABEL org.opencontainers.image.description="Official miniHive Docker image"
+LABEL org.opencontainers.image.url="https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.documentation="https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.source="https://github.com/sdbs-uni-p/minihive-docker"
+LABEL org.opencontainers.image.version=${MINIHIVE_DOCKER_VERSION}
+LABEL org.opencontainers.image.vendo="Chair of Scalable Database Systems - University of Passau"
+LABEL org.opencontainers.image.licenses="GPL-2.0-only"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG="C.UTF-8"
@@ -21,7 +28,6 @@ RUN echo 'root:root' | chpasswd
 # Install Linux required packages
 ##################################################
 
-ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
     apt-get -y dist-upgrade &&\
     apt-get install -y --no-install-recommends \
@@ -193,9 +199,7 @@ USER minihive
 WORKDIR /opt
 
 # Install Python dependencies
-ARG DEBIAN_FRONTEND=noninteractive
-RUN sudo --preserve-env=DEBIAN_FRONTEND \
-    apt-get install -y --no-install-recommends \
+RUN sudo apt-get install -y --no-install-recommends \
         curl\
         libbz2-dev \
         libc6-dev \
