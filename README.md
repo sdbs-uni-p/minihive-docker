@@ -84,7 +84,7 @@ To restore this content, you can run the 'unminimize' command.
 | | | | | | | | | | |  _  | |\ V /  __/
 |_| |_| |_|_|_| |_|_|_| |_|_| \_/ \___|
 
-MiniHive v0.1
+miniHive Docker
 
 minihive@291614e93438:~$
 ```
