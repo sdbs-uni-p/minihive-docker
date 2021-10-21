@@ -81,7 +81,7 @@ RUN ssh-keygen -t ed25519 -P '' -f /home/minihive/.ssh/id_ed25519
 RUN chmod 0600 ~/.ssh/id_ed25519
 RUN chmod 0600 ~/.ssh/id_ed25519.pub
 
-RUN touch ~/.ssh/authorized_keys
+RUN cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 RUN chmod 0600 ~/.ssh/authorized_keys
 
 # Prepare SSH to cline minihive-docker-content (private repository)
@@ -126,7 +126,7 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    -c https://ftp.halifax.rwth-aachen.de/apache/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
+    -c https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
 RUN tar xzf hadoop-3.2.2.tar.gz
 RUN rm -v hadoop-3.2.2.tar.gz
 WORKDIR hadoop-3.2.2
@@ -175,7 +175,7 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    -c https://ftp.halifax.rwth-aachen.de/apache/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+    -c https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 RUN tar xzf spark-3.1.2-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.2-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.2-bin-hadoop3.2
@@ -214,50 +214,78 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
-RUN tar xzf Python-3.9.4.tgz
-WORKDIR Python-3.9.4
-RUN ./configure --prefix=/usr/local
-RUN make -j $(cat /proc/cpuinfo  | grep processor | wc -l)
-RUN sudo make altinstall
+    https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz
+RUN tar xzf Python-3.10.0.tgz
+WORKDIR Python-3.10.0
+RUN ./configure --enable-optimizations
+RUN make -j $(nproc)
+RUN sudo make install
 WORKDIR /opt/
-RUN rm Python-3.9.4.tgz
-RUN sudo rm -rf Python-3.9.4
-RUN sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.9  1
+RUN rm Python-3.10.0.tgz
+RUN sudo rm -rf Python-3.10.0
+
+WORKDIR /usr/local/bin/
+RUN sudo ln -s python3 python
+RUN sudo ln -s pip3 pip
 
 ##################################################
 # Install Python dependencies for MiniHive
 ##################################################
 
 # Install PIP
-RUN wget \
-    --no-verbose --show-progress \
-    --progress=bar:force:noscrol \
-    --no-check-certificate \
-    -c https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py --user --no-warn-script-location
-RUN /usr/bin/python -m pip install --upgrade pip --no-warn-script-location
-RUN rm get-pip.py
+#RUN wget \
+#    --no-verbose --show-progress \
+#    --progress=bar:force:noscrol \
+#    --no-check-certificate \
+#    -c https://bootstrap.pypa.io/get-pip.py
+#RUN python get-pip.py --user --no-warn-script-location
+#RUN /usr/bin/python -m pip install --upgrade pip --no-warn-script-location
+#RUN rm get-pip.py
 
-RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-location \
-    antlr4-python3-runtime \
-    boto3 \
-    datetime \
-    google-api-client \
-    google-api-python-client \
-    google-auth \
-    httplib2 \
+# RADB Dependencies
+# 
+RUN pip3 install --user --disable-pip-version-check --no-cache-dir \
+    radb \
+    sqlparse \
     luigi \
     pytest \
     pytest-repeat \
+    httplib2
+
+RUN sudo pip3 install --disable-pip-version-check --no-cache-dir \
     radb \
     sqlparse \
-    unittest2 \
-    wheel
+    luigi \
+    pytest \
+    pytest-repeat \
+    httplib2
 
+
+
+ #httplib2, google-auth
+#googleapiclient & google-auth
+#pip install google-api-python-client
+
+#RUN /usr/bin/python -m pip install --user --no-cache-dir --no-warn-script-location \
+#    antlr4-python3-runtime \
+#    boto3 \
+#    datetime \
+#    google-api-client \
+#    google-api-python-client \
+#    google-auth \
+#    httplib2 \
+#    luigi \
+#    pytest \
+#    pytest-repeat \
+#    radb \
+#    sqlparse \
+#    unittest2 \
+#    wheel
+
+# TODO: Delete
 # fix antlr version for miniHive
-RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime
-RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-script-location
+#RUN /usr/bin/python -m pip uninstall -y antlr4-python3-runtime
+#RUN /usr/bin/python -m pip install --user antlr4-python3-runtime==4.7 --no-warn-script-location
 
 ##################################################
 # Download Docker Content (Data and Examples)
@@ -275,7 +303,8 @@ RUN mv docker-content/* . && rm -rf docker-content build.sh
 USER minihive
 WORKDIR /home/minihive/
 
-COPY --chown=minihive:minihive config/minihive/* ./
+COPY --chown=minihive:minihive config/home/luigi.cfg .luigi.cfg
+COPY --chown=minihive:minihive config/home/radb.ini .radb.ini
 
 ##################################################
 # Launch services when booting Docker
