@@ -222,7 +222,7 @@ minihive@291614e93438:~$ sudo apt-get install emacs
 This is the content of the miniHive Docker.
 The directories *hadoop*, *hive*, *spark*, and *radb* contain sample data and example applications to be run in each system.
 The *tpch* directory contains the [TPC-H](http://www.tpc.org/tpch/) benchmark that can be run on Hive.
-Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark, RADB, and the miniHive project.
+Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark and RADB.
 
 ```console
 minihive@291614e93438:~$ ls -lh
@@ -231,7 +231,6 @@ drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 spark
 drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hive
 -rw-r--r-- 1 minihive minihive 1.4K May 18 16:08 README.md
 drwxr-xr-x 1 minihive minihive 4.0K May 18 16:08 radb
-drwxr-xr-x 1 minihive minihive 4.0K May 18 16:08 minihive
 drwxr-xr-x 7 minihive minihive 4.0K May 18 16:08 tpch
 drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hadoop
 minihive@291614e93438:~$ less README.md
