@@ -5,7 +5,10 @@
 
 FROM ubuntu:21.04
 
-MAINTAINER Edson Ramiro Lucas Filho "edson.lucas@uni-passau.de"
+# Authors:
+#   Edson Ramiro Lucas Filho (University of Passau)
+
+LABEL maintainer="michael.fruth@uni-passau.de"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG="C.UTF-8"
