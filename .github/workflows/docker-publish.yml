@@ -3,6 +3,10 @@ name: Publish Docker Image
 on:
   # Trigger build manually
   workflow_dispatch:
+  # Trigger automatically for new tags
+  push:
+    tags:
+      - '*'
 
 env:
   # Use docker.io for Docker Hub if empty
