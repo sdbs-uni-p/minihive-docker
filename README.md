@@ -20,9 +20,19 @@ Note that the miniHive container does not contain a Graphical User Interface.
 The following steps will assist you to build, run and access the miniHive's Docker image. Please, check the [official Docker documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information in case you have questions regarding specific steps, error messages or the terminology used.
 
 ### Building the Docker image <a name="building-image"></a>
+You can either use the pre-built Docker image or build the image on your own.
 
+Based on the instructions below, the docker image is named 'minihive-docker'.
+
+#### Pre-Built Image
+Get the pre-built docker image:
+
+```shell
+docker pull ghcr.io/sdbs-uni-p/minihive-docker:latest
+```
+
+#### Building on your own
 You can download and build the Docker image with the commands below.
-The docker image is named 'minihive-docker'.
 This step may take a while because all required software will be downloaded, installed and configured during the build (about 5-10 minutes depending on your machine and internet connection).
 
 After the execution of the *docker build* command you should have a message saying the build was successful.
