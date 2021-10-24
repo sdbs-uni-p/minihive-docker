@@ -167,7 +167,7 @@ foo@bar:~/minihive-docker$ docker start minihive
 foo@bar:~/minihive-docker$ ssh -p 2222 minihive@localhost
 minihive@localhost's password:
 minihive@291614e93438:~$ ls
-README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
+README.md  hadoop  hive  my-file.txt  radb  spark  tpch
 ```
 
 ### Copy files to/from your local machine<a name="copy-from-to"></a>
