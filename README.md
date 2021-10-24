@@ -156,7 +156,7 @@ README.md  data  hadoop  hive  my-file.txt  radb  spark  tpch
 minihive@291614e93438:~$ exit
 ```
 
-You can stop the container and start it again. You file ``my-file.txt'' should be there.
+You can stop the container and start it again. Your file ``my-file.txt'' should be there.
 
 ```console
 foo@bar:~/minihive-docker$ docker stop minihive
