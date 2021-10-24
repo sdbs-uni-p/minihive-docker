@@ -11,7 +11,7 @@
 
 These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a container image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.2).
 
-In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The image provides [Python 3.9](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
+In this course students build their own SQL-on-Hadoop engine as a term project, called [miniHive](https://github.com/miniHive/assignment). This term project is written in Python and compiles SQL queries into MapReduce workflows. The image provides [Python 3.10](https://docs.python.org/3/reference/index.html) and the libraries [RADB](https://users.cs.duke.edu/~junyang/radb/), [Luigi](https://luigi.readthedocs.io/en/stable/), [SQLparse](https://sqlparse.readthedocs.io/en/latest/) for students to build miniHive.
 
 Note that the miniHive container does not contain a Graphical User Interface.
 
@@ -20,9 +20,19 @@ Note that the miniHive container does not contain a Graphical User Interface.
 The following steps will assist you to build, run and access the miniHive's Docker image. Please, check the [official Docker documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information in case you have questions regarding specific steps, error messages or the terminology used.
 
 ### Building the Docker image <a name="building-image"></a>
+You can either use the pre-built Docker image or build the image on your own.
 
+Based on the instructions below, the docker image is named 'minihive-docker'.
+
+#### Pre-Built Image
+Get the pre-built docker image:
+
+```shell
+docker pull ghcr.io/sdbs-uni-p/minihive-docker:latest
+```
+
+#### Building on your own
 You can download and build the Docker image with the commands below.
-The docker image is named 'minihive-docker'.
 This step may take a while because all required software will be downloaded, installed and configured during the build (about 5-10 minutes depending on your machine and internet connection).
 
 After the execution of the *docker build* command you should have a message saying the build was successful.
@@ -30,15 +40,11 @@ After the execution of the *docker build* command you should have a message sayi
 ```console
 foo@bar:~$ git clone https://github.com/sdbs-uni-p/minihive-docker.git
 foo@bar:~$ cd minihive-docker
-foo@bar:~/minihive-docker$ docker build -t minihive-docker .
+foo@bar:~/minihive-docker$ docker build --no-cache -t minihive-docker .
 [...]
-Step 105/106 : WORKDIR /home/minihive/
- ---> Using cache
- ---> ad484932367b
-Step 106/106 : ENTRYPOINT /opt/entrypoint.sh
- ---> Using cache
- ---> 5e914023974a
-Successfully built 5e914023974a
+Step 107/107 : ENTRYPOINT /opt/entrypoint.sh
+[...]
+Successfully built 1517444f3ff1
 Successfully tagged minihive-docker:latest
 ```
 
@@ -88,7 +94,7 @@ To restore this content, you can run the 'unminimize' command.
 | | | | | | | | | | |  _  | |\ V /  __/
 |_| |_| |_|_|_| |_|_|_| |_|_| \_/ \___|
 
-MiniHive v0.1
+miniHive Docker
 
 minihive@291614e93438:~$
 ```
@@ -146,7 +152,7 @@ Now, lets create a new empty file and exit the container.
 ```console
 minihive@291614e93438:~$ touch my-file.txt
 minihive@291614e93438:~$ ls
-README.md  data  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
+README.md  data  hadoop  hive  my-file.txt  radb  spark  tpch
 minihive@291614e93438:~$ exit
 ```
 
@@ -161,10 +167,10 @@ foo@bar:~/minihive-docker$ docker start minihive
 foo@bar:~/minihive-docker$ ssh -p 2222 minihive@localhost
 minihive@localhost's password:
 minihive@291614e93438:~$ ls
-README.md  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
+README.md  hadoop  hive  my-file.txt  radb  spark  tpch
 ```
 
-### Copy files to/from your local machine <a name="copy-from-to"></a>
+### Copy files to/from your local machine<a name="copy-from-to"></a>
 
 You can copy files to/from your local machine using scp.
 
@@ -226,7 +232,7 @@ minihive@291614e93438:~$ sudo apt-get install emacs
 This is the content of the miniHive Docker.
 The directories *hadoop*, *hive*, *spark*, and *radb* contain sample data and example applications to be run in each system.
 The *tpch* directory contains the [TPC-H](http://www.tpc.org/tpch/) benchmark that can be run on Hive.
-Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark, RADB, and the miniHive project.
+Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark and RADB.
 
 ```console
 minihive@291614e93438:~$ ls -lh
@@ -235,7 +241,6 @@ drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 spark
 drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hive
 -rw-r--r-- 1 minihive minihive 1.4K May 18 16:08 README.md
 drwxr-xr-x 1 minihive minihive 4.0K May 18 16:08 radb
-drwxr-xr-x 1 minihive minihive 4.0K May 18 16:08 minihive
 drwxr-xr-x 7 minihive minihive 4.0K May 18 16:08 tpch
 drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hadoop
 minihive@291614e93438:~$ less README.md
@@ -343,20 +348,4 @@ minihive@291614e93438:~$ cd spark
 minihive@291614e93438:~/spark$ spark-submit \
             --class org.apache.spark.examples.SparkPi \
             --master local[2] /opt/spark-3.1.2-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.2.jar 100
-```
-
-##### miniHive
-
-The miniHive project, including the milestones with their unit tests are placed in the directory /home/minihive/minihive/.
-
-```console
-minihive@291614e93438:~$ cd minihive/
-minihive@291614e93438:~/minihive$ ls -l
-total 256
--rw-r--r-- 1 minihive minihive    134 May 12 16:37 luigi.cfg
-drwxr-xr-x 1 minihive minihive   4096 May 12 17:00 milestone1
-drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone2
-drwxr-xr-x 1 minihive minihive   4096 May 12 16:37 milestone3
-drwxr-xr-x 2 minihive minihive   4096 May 12 16:37 milestone4
--rw-r--r-- 1 minihive minihive 239635 May 12 16:37 miniHiveSummary.pdf
 ```
