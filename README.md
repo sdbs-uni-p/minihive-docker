@@ -152,7 +152,7 @@ Now, lets create a new empty file and exit the container.
 ```console
 minihive@291614e93438:~$ touch my-file.txt
 minihive@291614e93438:~$ ls
-README.md  data  hadoop  hive  minihive  my-file.txt  radb  spark  tpch
+README.md  data  hadoop  hive  my-file.txt  radb  spark  tpch
 minihive@291614e93438:~$ exit
 ```
 
