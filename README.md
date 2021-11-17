@@ -380,3 +380,33 @@ minihive@291614e93438:~/spark$ spark-submit \
             --class org.apache.spark.examples.SparkPi \
             --master local[2] /opt/spark-3.1.2-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.2.jar 100
 ```
+
+# Pitfalls <a name="pitfalls"></a>
+
+#### Hadoop Streaming returns `File not found`
+  
+Check the shebang of your Python files. It needs to be either unspecific about the version to use or specified to the same version that is installed accordingly, e.g.: 
+           
+```python
+#!/usr/local/bin/python
+```
+
+#### Hadoop fs returns `No such file or directory` when trying to upload data
+  
+Check if the home directory of minihive was created. If not, add it accordingly:
+
+```console
+minihive@291614e93432:~$ hdfs dfs -mkdir /user
+minihive@291614e93432:~$ hdfs dfs -mkdir /user/minihive
+```
+
+Afterwards you can interact with the filesystem as if you already were in the home directory.
+
+#### Hadoop is stuck at map 0%, reduce 0%
+  
+You need to assign at leat 4 GiB of memory to the container. Check the amount of memory allowed to the container and raise it to the full amount available on your system, `4096 MiB` in this case.
+           
+```console
+user@host:~$ docker stats
+user@host:~$ docker run -d --name minihive -p 2222:22 --memory 4096m minihive-docker
+```
