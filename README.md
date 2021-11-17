@@ -232,7 +232,7 @@ minihive@291614e93438:~$ sudo apt-get install emacs
 This is the content of the miniHive Docker.
 The directories *hadoop*, *hive*, *spark*, and *radb* contain sample data and example applications to be run in each system.
 The *tpch* directory contains the [TPC-H](http://www.tpc.org/tpch/) benchmark that can be run on Hive.
-Please, read the file *README.md* (in the HOME directory) for instructions on how to run example applications on Hadoop, Hive, Spark and RADB.
+Read the following instructions on how to run the example applications on Hadoop, Hive, Spark and RADB.
 
 ```console
 minihive@291614e93438:~$ ls -lh
@@ -243,10 +243,7 @@ drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hive
 drwxr-xr-x 1 minihive minihive 4.0K May 18 16:08 radb
 drwxr-xr-x 7 minihive minihive 4.0K May 18 16:08 tpch
 drwxr-xr-x 2 minihive minihive 4.0K May 18 16:08 hadoop
-minihive@291614e93438:~$ less README.md
 ```
-
-You can use the following commands to run examples on each system:
 
 ##### RADB
 
@@ -275,7 +272,7 @@ ra> \quit;
 
 ##### Hadoop
 
-One example is the wordcount problem. Use the commands below to compile and run the wordcount example. Please, make sure that more than 10% of the total disk on your machine is free.
+One example for Hadoop is the wordcount problem. Use the commands below to compile and run the wordcount example. Please, make sure that more than 10% of the total disk on your machine is free. Also make sure that the home directory was created in HDFS as stated in the steps below.
 
 ```console
 minihive@291614e93438:~$ cd hadoop
@@ -310,6 +307,40 @@ minihive@291614e93438:~/hadoop$ hdfs dfs -cat count/part*
 ‘Īsá,Bahrain,Southern  1
 ‘Īsá,Egypt,Al   1
 ’Aïn    9
+```
+
+##### Hadoop Streaming
+
+Hadoop also supports the feature of streaming other execution environments such as Python to its MapReduce engine.
+This example is standalone. You may skip some parts if you have already uploaded the `cities.csv` to HDFS.
+
+```console
+minihive@291614e93438:~$ cd hadoop-streaming
+minihive@291614e93438:~/hadoop-streaming$ ls
+wordcount  data
+minihive@291614e93438:~/hadoop-streaming$ ls wordcount
+mapper.py reducer.py
+minihive@291614e93432:~/hadoop-streaming$ hdfs dfs -mkdir /user
+minihive@291614e93432:~/hadoop-streaming$ hdfs dfs -mkdir /user/minihive
+minihive@291614e93438:~/hadoop-streaming$ hdfs dfs -put data/cities.csv
+minihive@291614e93438:~/hadoop-streaming$ hdfs dfs -ls
+found 1 item
+-rw-r--r--   1 minihive supergroup     235514 2021-11-17 12:19 cities.csv
+minihive@291614e93438:~/hadoop-streaming$ mapred streaming -mapper mapper.py -reducer reducer.py -file wordcount/mapper.py -file wordcount/reducer.py -input cities.csv -output streaming-count
+minihive@291614e93438:~/hadoop$ hdfs dfs -ls streaming-count/
+Found 2 items
+-rw-r--r--   1 minihive supergroup          0 2021-11-17 12:30 streaming-count/_SUCCESS
+-rw-r--r--   1 minihive supergroup     237818 2021-11-17 12:30 streaming-count/part-00000
+minihive@291614e93438:~/hadoop$ hdfs dfs -cat streaming-count/part*
+[...]
+El	84
+do	97
+Santa	102
+Al	105
+La	114
+City	136
+San	289
+de	338
 ```
 
 ##### Hive
