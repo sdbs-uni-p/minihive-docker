@@ -8,6 +8,7 @@
 1.5 [Copy files to/from your local machine](#copy-from-to)\
 1.6 [How to install extra software](#install-extra)
 2. [Running applications](#running-apps)
+3. [Pitfalls](#pitfalls)
 
 These files are part of a Scalable Database Systems course taught at the University of Passau. These files are used to build and configure a container image with the systems required during the course, including [Hadoop](https://hadoop.apache.org/docs/r3.2.2/) (v. 3.2.2), [Hive](https://cwiki.apache.org/confluence/display/hive/languagemanual) (v. 3.1.2), and [Spark](https://spark.apache.org/docs/latest/) (v. 3.1.2).
 
