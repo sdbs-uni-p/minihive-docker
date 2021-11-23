@@ -411,3 +411,27 @@ You need to assign at leat 4 GiB of memory to the container. Check the amount of
 user@host:~$ docker stats
 user@host:~$ docker run -d --name minihive -p 2222:22 --memory 4096m minihive-docker
 ```
+
+#### Hadoop can not found the input data
+  
+Input data needs to be uploaded to HDFS first. The following example assumes you want to upload the `cities.csv` as mentioned in the [Hadoop Streaming section](#running-apps).
+           
+```console
+minihive@291614e93438:~/hadoop-streaming$ hdfs dfs -put data/cities.csv
+minihive@291614e93438:~/hadoop-streaming$ hdfs dfs -ls
+found 1 item
+-rw-r--r--   1 minihive supergroup     235514 2021-11-17 12:19 cities.csv
+```
+
+#### Hadoop responds `Output directory [...] already exists`
+  
+The specified output directory already exists in HDFS. Remove the existing directory or specify another output folder, it will be created automatically.
+           
+```console
+minihive@291614e93438:~/minihive$ mapred streaming -mapper mapper.py -reducer reducer.py -file mapper.py -file reducer.py -input demo.csv -output output
+[...]
+2021-11-23 23:50:26,683 ERROR streaming.StreamJob: Error Launching job : Output directory hdfs://localhost:9000/user/minihive/output already exists
+Streaming Command Failed!
+minihive@291614e93438:~/minihive$ hdfs dfs -rm -r output
+Deleted output
+```
