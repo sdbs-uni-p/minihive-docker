@@ -3,7 +3,7 @@
 # Copyright 2021, Chair of Scalable Database Systems - University of Passau
 # SPDX-License-Identifier: GPL-2.0-only
 
-FROM ubuntu:21.04
+FROM ubuntu:22.04
 
 ENV MINIHIVE_DOCKER_VERSION=1.0.0
 
@@ -33,21 +33,22 @@ RUN apt-get update &&\
     apt-get install -y --no-install-recommends \
         apt-utils \
         bc \
-	build-essential \
+        build-essential \
         curl \
         dos2unix \
         git \
         gnupg2 \
-	less \
+        less \
+        lsb-release \
         maven \
         openjdk-8-jdk \
         openjdk-8-jre \
-	openssh-client \
-	openssh-server \
+        openssh-client \
+        openssh-server \
         scala \
         sudo \
         time \
-	unzip \
+        unzip \
         vim \
         wget
 
@@ -93,6 +94,9 @@ RUN chmod 0600 ~/.ssh/id_ed25519.pub
 RUN cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
 RUN chmod 0600 ~/.ssh/authorized_keys
 
+# Add to known hosts for seamless cloning
+RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 # Prepare SSH to cline minihive-docker-content (private repository)
 COPY --chown=minihive:minihive config/ssh/* /home/minihive/.ssh/
 RUN chmod 0600 ~/.ssh/minihive-docker-content ~/.ssh/minihive-docker-content.pub
@@ -103,16 +107,16 @@ RUN chmod 0600 ~/.ssh/minihive-docker-content ~/.ssh/minihive-docker-content.pub
 
 USER root
 WORKDIR /root
-RUN sudo gpg \
-    --keyserver keys.openpgp.org \
-    --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN apt-get install -y --no-install-recommends \
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
         postgresql-13 \
         postgresql-client-13 \
         postgresql-contrib-13 \
         software-properties-common
+
 WORKDIR /home/postgres
 USER postgres
 RUN /etc/init.d/postgresql start &&\
@@ -184,7 +188,7 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    -c https://dlcdn.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+    -c https://archive.apache.org/dist/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 RUN tar xzf spark-3.1.2-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.2-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.2-bin-hadoop3.2

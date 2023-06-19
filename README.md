@@ -349,3 +349,15 @@ minihive@291614e93438:~/spark$ spark-submit \
             --class org.apache.spark.examples.SparkPi \
             --master local[2] /opt/spark-3.1.2-bin-hadoop3.2/examples/jars/spark-examples_2.12-3.1.2.jar 100
 ```
+
+##### Luigi
+
+You can execute an example of luigi using the commands below:
+
+```console
+minihive@3f0555a99348:~$ cd python-luigi/                                                                             │make[1]: Leaving directory '/opt/Python-3.10.0'
+minihive@3f0555a99348:~/python-luigi$ ./run-local # load and store files on disk
+minihive@3f0555a99348:~/python-luigi$ ./run-hdfs # load and store files in HDFS
+minihive@3f0555a99348:~/python-luigi$ ./run-test # use mock data for unit tests
+```
+
