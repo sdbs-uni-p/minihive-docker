@@ -97,7 +97,7 @@ RUN chmod 0600 ~/.ssh/authorized_keys
 # Add to known hosts for seamless cloning
 RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-# Prepare SSH to cline minihive-docker-content (private repository)
+# Prepare SSH to clone minihive-docker-content (private repository)
 COPY --chown=minihive:minihive config/ssh/* /home/minihive/.ssh/
 RUN chmod 0600 ~/.ssh/minihive-docker-content ~/.ssh/minihive-docker-content.pub
 

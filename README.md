@@ -115,7 +115,7 @@ minihive@291614e93438:~$ /opt/restart-services.sh
 
 ### 
 
-SSH will not let you access a host:port combination that has a different identification then the one previosly stored. This is to avoid man-in-the-middle attacks.
+SSH will not let you access a host:port combination that has a different identification then the one previously stored. This is to avoid man-in-the-middle attacks.
 In case you receive a similar warning from SSH after you recreated the container, you can solve this by removing the old identification that is stored in the *~/.ssh/known_hosts* file.
 
 ```console
@@ -174,7 +174,7 @@ README.md  hadoop  hive  my-file.txt  radb  spark  tpch
 
 You can copy files to/from your local machine using scp.
 
-Exemple:
+Example:
 
 - Copy to:
 ```console
