@@ -273,6 +273,8 @@ Budweiser, Anheuser-Busch Inc.
 ra> \quit;
 ```
 
+The "pizza scenario" database is also available and can be loaded as described above.
+
 ##### Hadoop
 
 One example is the wordcount problem. Use the commands below to compile and run the wordcount example. Please, make sure that more than 10% of the total disk on your machine is free.
@@ -352,12 +354,21 @@ minihive@291614e93438:~/spark$ spark-submit \
 
 ##### Luigi
 
-You can execute an example of luigi using the commands below:
+Luigi supports three different modes of execution:
+
+- Local
+    - Data is loaded from local disk and results are also stored there.
+- HDFS
+    - Data is loaded from HDFS and results are also stored there.
+- Mock
+    - Data is mocked, i.e. hard-coded dummy data is embedded in the script and used. This mode is used specifically for unit tests.
+
+In the following, the three different variants for luigi are shown, using the example of the wordcount problem:
 
 ```console
-minihive@3f0555a99348:~$ cd python-luigi/                                                                             │make[1]: Leaving directory '/opt/Python-3.10.0'
-minihive@3f0555a99348:~/python-luigi$ ./run-local # load and store files on disk
-minihive@3f0555a99348:~/python-luigi$ ./run-hdfs # load and store files in HDFS
-minihive@3f0555a99348:~/python-luigi$ ./run-test # use mock data for unit tests
+minihive@3f0555a99348:~$ cd python-luigi/
+minihive@3f0555a99348:~/python-luigi$ ./run-local # Local
+minihive@3f0555a99348:~/python-luigi$ ./run-hdfs # HDFS
+minihive@3f0555a99348:~/python-luigi$ ./run-test # Mock
 ```
 
