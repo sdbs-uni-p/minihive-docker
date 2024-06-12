@@ -157,7 +157,7 @@ RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
     --no-check-certificate \
-    -c https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
+    -c https://archive.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
 RUN tar xzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
 WORKDIR apache-hive-3.1.2-bin
