@@ -221,7 +221,7 @@ total 26776
 
 ### How to install extra software <a name="install-extra"></a>
 
-You can install extra software with apt-get. This command install emacs.
+You can install extra software with apt-get. This command installs emacs.
 
 ```console
 minihive@291614e93438:~$ sudo apt-get install emacs
