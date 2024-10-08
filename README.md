@@ -283,7 +283,7 @@ One example is the wordcount problem. Use the commands below to compile and run 
 minihive@291614e93438:~$ cd hadoop
 minihive@291614e93438:~/hadoop$ ls
 WordCount.java  data
-minihive@291614e93438:~/hadoop$ hadoop com.sun.tools.javac.Main WordCount.java
+minihive@291614e93438:~/hadoop$ javac -classpath $(hadoop classpath) WordCount.java
 minihive@291614e93438:~/hadoop$ jar cf wordcount.jar WordCount*.class
 minihive@291614e93438:~/hadoop$ ls -l
 -rw-rw-r-- 1 user user 1793 May 21 11:00 'WordCount$IntSumReducer.class'
@@ -300,6 +300,7 @@ found 1 items
 -rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
 minihive@291614e93438:~/hadoop$
 minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar org.apache.hadoop.examples.WordCount cities.csv count
+[...]
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
 Found 2 items
 -rw-r--r--   1 minihive supergroup          0 2021-05-20 11:58 count/_SUCCESS
