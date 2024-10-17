@@ -282,10 +282,10 @@ One example is the wordcount problem. Use the commands below to compile and run 
 ```console
 minihive@291614e93438:~$ cd hadoop
 minihive@291614e93438:~/hadoop$ ls
-WordCount.java  data
-minihive@291614e93438:~/hadoop$ javac -classpath $(hadoop classpath) WordCount.java
-minihive@291614e93438:~/hadoop$ jar cf wordcount.jar WordCount*.class
-minihive@291614e93438:~/hadoop$ ls -l
+de  data
+minihive@291614e93438:~/hadoop$ javac -classpath $(hadoop classpath) de/uni_passau/minihive/WordCount.java
+minihive@291614e93438:~/hadoop$ jar cf wordcount.jar -C . de
+minihive@291614e93438:~/hadoop$ ls -l de/uni_passau/minihive
 -rw-rw-r-- 1 user user 1793 May 21 11:00 'WordCount$IntSumReducer.class'
 -rw-rw-r-- 1 user user 1790 May 21 11:00 'WordCount$TokenizerMapper.class'
 -rw-rw-r-- 1 user user 1988 May 21 11:00  WordCount.class
@@ -299,7 +299,7 @@ minihive@291614e93438:~/hadoop$ hdfs dfs -ls
 found 1 items
 -rw-r--r--   1 minihive supergroup     235514 2021-05-20 11:42 cities.csv
 minihive@291614e93438:~/hadoop$
-minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar org.apache.hadoop.examples.WordCount cities.csv count
+minihive@291614e93438:~/hadoop$ hadoop jar wordcount.jar de.uni_passau.minihive.WordCount cities.csv count
 [...]
 minihive@291614e93438:~/hadoop$ hdfs dfs -ls count/
 Found 2 items
