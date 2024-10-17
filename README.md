@@ -290,7 +290,9 @@ minihive@291614e93438:~/hadoop$ ls -l de/uni_passau/minihive
 -rw-rw-r-- 1 user user 1790 May 21 11:00 'WordCount$TokenizerMapper.class'
 -rw-rw-r-- 1 user user 1988 May 21 11:00  WordCount.class
 -rw-rw-r-- 1 user user 3305 May 21 11:00  WordCount.java
+minihive@291614e93438:~/hadoop$ ls -l
 drwxrwxr-x 2 user user 4096 May 21 11:00  data
+drwxrwxr-x 2 user user 4096 May 21 11:00  de
 -rw-rw-r-- 1 user user 3325 May 21 11:00  wordcount.jar
 minihive@291614e93432:~/hadoop$ hdfs dfs -mkdir /user
 minihive@291614e93432:~/hadoop$ hdfs dfs -mkdir /user/minihive
