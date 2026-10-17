@@ -138,7 +138,6 @@ WORKDIR /opt
 RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
-    --no-check-certificate \
     -c https://archive.apache.org/dist/hadoop/common/hadoop-3.2.2/hadoop-3.2.2.tar.gz
 RUN tar xzf hadoop-3.2.2.tar.gz
 RUN rm -v hadoop-3.2.2.tar.gz
@@ -156,7 +155,6 @@ WORKDIR /opt/
 RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
-    --no-check-certificate \
     -c https://archive.apache.org/dist/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
 RUN tar xzf apache-hive-3.1.2-bin.tar.gz
 RUN rm -v apache-hive-3.1.2-bin.tar.gz
@@ -167,7 +165,6 @@ RUN rm lib/guava-19.0.jar
 RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
-    --no-check-certificate \
     -c https://repo1.maven.org/maven2/com/google/guava/guava/27.0-jre/guava-27.0-jre.jar -O lib/guava-27.0-jre.jar
 # remove conflict with Hadoop slf4j jar
 RUN rm lib/log4j-slf4j-impl-2.10.0.jar
@@ -187,7 +184,6 @@ WORKDIR /opt/
 RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
-    --no-check-certificate \
     -c https://archive.apache.org/dist/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
 RUN tar xzf spark-3.1.2-bin-hadoop3.2.tgz
 RUN rm -v spark-3.1.2-bin-hadoop3.2.tgz
@@ -227,7 +223,6 @@ RUN sudo apt-get install -y --no-install-recommends \
 RUN wget \
     --no-verbose --show-progress \
     --progress=bar:force:noscrol \
-    --no-check-certificate \
     https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz
 RUN tar xzf Python-3.10.0.tgz
 WORKDIR Python-3.10.0
