@@ -5,7 +5,7 @@
 
 FROM ubuntu:22.04
 
-ENV MINIHIVE_DOCKER_VERSION=1.0.0
+ENV MINIHIVE_DOCKER_VERSION=1.1.3
 
 LABEL org.opencontainers.image.authors "Michael Fruth <michael.fruth@uni-passau.de>, Sascha Schiegg <sascha.schiegg@uni-passau.de>"
 LABEL org.opencontainers.image.title "miniHive Docker"
@@ -194,6 +194,9 @@ RUN rm -v spark-3.1.2-bin-hadoop3.2.tgz
 WORKDIR spark-3.1.2-bin-hadoop3.2
 COPY --chown=minihive:minihive config/spark/* ./conf/
 COPY --chown=minihive:minihive config/hive/hive-site.xml ./conf/
+ENV SPARK_HOME="/opt/spark-3.1.2-bin-hadoop3.2"
+ENV PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9-src.zip:${SPARK_HOME}/python"
+RUN echo "PYTHONPATH=${PYTHONPATH}" | sudo tee -a /etc/environment
 
 ##################################################
 # Download and Install Python
