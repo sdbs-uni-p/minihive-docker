@@ -267,6 +267,15 @@ WORKDIR /home/minihive/
 COPY --chown=minihive:minihive config/home/luigi.cfg .luigi.cfg
 COPY --chown=minihive:minihive config/home/radb.ini .radb.ini
 
+# Sales data (purchases.txt) for the MapReduce exercises
+RUN wget \
+    --no-verbose --show-progress \
+    --progress=bar:force:noscrol \
+    https://github.com/sdbs-uni-p/sds-artifacts/raw/23d204ff01bf708c07b786817c84c1d6d72ff9b8/purchases.tgz &&\
+    echo "81e2529a9ce7a2e199293861942cb044b72cd09deffc7486d6390ee05346345e  purchases.tgz" | sha256sum -c &&\
+    tar xzf purchases.tgz -C data &&\
+    rm -v purchases.tgz
+
 ##################################################
 # Launch services when booting Docker
 ##################################################
